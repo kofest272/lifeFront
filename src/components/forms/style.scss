@@ -1,0 +1,40 @@
+.containerToCenter {
+    width: 100%;
+    height: 900px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.root {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 400px;
+    height: 500px;
+    padding: 50px;
+    border: 1px solid #dedede;
+}
+
+form {
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.field {
+    margin-bottom: 20px !important;
+}
+
+.titleForm {
+    text-align: center !important;
+    font-weight: bold !important;
+    margin-bottom: 30px !important;
+}
+
+.avatar {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}

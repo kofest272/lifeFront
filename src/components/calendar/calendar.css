@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500&display=swap');
+
+.contCenter {
+    display: flex;
+    justify-content: center;
+}
+
+.calendarContainer {
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.day-of-week {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 5px;
+    font-family: Arial, Helvetica, sans-serif;
+    width: 100%;
+    border-right: 1px solid #47718b85;
+    min-height: calc(100vh - 80px);
+}
+
+.dayInfo {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 60px;
+}
+
+.activeDay {
+    color: #72b3db;
+}
+
+
+.dayInfo p {
+    margin: 0;
+}
+
+/* Task css */
+
+.task {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 95%;
+    height: 200px;
+    border-radius: 15px;
+    box-shadow: 0 2px 4px #00000074;
+    font-family: mon;
+    gap: 10px;
+    overflow: hidden;
+
+    .colorTask {
+        width: 100%;
+        height: 30px;
+        background-image: url('./../../img/taskBg/bg.png');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 100%;
+        overflow: hidden;
+    }
+
+    .info {
+        font-family: 'Montserrat', sans-serif;
+
+        .titleTask {
+            font-weight: 600;
+        }
+
+        .subTask {
+            font-size: 15px;
+            color: #00000090;
+        }
+    }
+
+    .tools {
+        display: flex;
+        width: 100%;
+        height: 30px;
+        cursor: pointer;
+
+        .delete {
+            background-color: rgb(169, 37, 37);
+            width: 100%;
+        }
+
+        .move {
+            background-color: #2a445485;
+            width: 100%;
+        }
+
+        .edit {
+            background-color: gray;
+            width: 100%;
+        }
+    }
+}
+
+.clearBtn {
+    cursor: pointer;
+    border: none;
+    color: #2a4454;
+}
+
+.cornerDiv {
+    width: 200px;
+    height: 100px;
+    color: #2a4454;
+    position: fixed;
+    right: 0;
+    bottom: 0;
+}
