@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 // ICONS
 import { FaTasks, FaBrain, FaRunning } from "react-icons/fa";
 import {
-    MdEvent, MdFastfood, MdForum, MdOutlineSupportAgent, MdEditDocument, MdKeyboardArrowUp,
+    MdEvent, MdFastfood, MdForum, MdOutlineSupportAgent, MdEditDocument,
     MdOutlineCalendarMonth, MdOutlineHelpOutline, MdHealthAndSafety, MdMoneyOffCsred, MdOutlineAttachMoney
 } from "react-icons/md";
 import { GiNightSleep } from "react-icons/gi";
@@ -68,7 +68,7 @@ class Nav extends Component {
                                 </div>
                             </div>
                             <div className="icon-box gb b">
-                                <div class="icon"><i className="far fa-users-class"></i></div>
+                                <div className="icon"><i className="far fa-users-class"></i></div>
                                 <div className="text">
                                     <div className="title">Activity <FaRunning /></div>
                                     <div className="sub-text">Get some exercise.</div>
@@ -82,7 +82,7 @@ class Nav extends Component {
                                 </div>
                             </div>
                             <div className="icon-box gb d">
-                                <div className="icon"><i class="far fa-chess-rook"></i></div>
+                                <div className="icon"><i className="far fa-chess-rook"></i></div>
                                 <div className="text">
                                     <div className="title">Body measurement<IoBody /></div>
                                     <div className="sub-text">Observe the changes in your body</div>

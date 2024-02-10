@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
-import { Navigate } from "react-router-dom";
 
 // @mui
 import Typography from "@mui/material/Typography";
@@ -21,14 +20,12 @@ const EditTask = ({ id, defaultValues }) => {
     const {
         register,
         handleSubmit,
-        setError,
         formState: { errors, isValid }
     } = useForm({
         defaultValues: {
             title: defaultValues.title || '',
             text: defaultValues.text || '',
             color: defaultValues.color || '',
-            finalDate: defaultValues.finalDate || '',
         },
         mode: 'all'
     });

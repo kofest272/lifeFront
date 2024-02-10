@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
@@ -10,17 +10,15 @@ import styles from "./style.scss";
 import { fetchAddTask } from "../../redux/slices/task";
 
 const CreateTask = () => {
-    const isAuth = useSelector(selectIsAuth);
     const dispatch = useDispatch();
     const {
         register,
         handleSubmit,
-        setError,
         formState: { errors, isValid }
     } = useForm({
         defaultValues: {
-            title: "dinis task",
-            text: "dinis stask",
+            title: "",
+            text: "",
         },
         mode: 'all'
     })

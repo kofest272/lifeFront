@@ -28,36 +28,36 @@ const Profile = () => {
                 <div className="containerProfile">
                     <div className="nav" style={{ width: '100px' }}>
                         <nav id="menu">
-                            <div class="menu-item">
-                                <div class="menu-text">
+                            <div className="menu-item">
+                                <div className="menu-text">
                                     <MdAccountCircle style={{ color: 'white', width: '50px', height: '50px' }} />
                                 </div>
-                                <div class="sub-menu">
-                                    <div class="icon-box gb d">
-                                        <div class="icon"><i class="far fa-chess-rook"></i></div>
-                                        <div class="text">
-                                            <div class="title">Change Profile <MdEdit /></div>
+                                <div className="sub-menu">
+                                    <div className="icon-box gb d">
+                                        <div className="icon"><i className="far fa-chess-rook"></i></div>
+                                        <div className="text">
+                                            <div className="title">Change Profile <MdEdit /></div>
                                         </div>
                                     </div>
-                                    <div class="icon-box gb d">
-                                        <div class="icon"><i class="far fa-chess-rook"></i></div>
-                                        <div class="text">
-                                            <div class="title">Settings <MdOutlineSettings /></div>
+                                    <div className="icon-box gb d">
+                                        <div className="icon"><i className="far fa-chess-rook"></i></div>
+                                        <div className="text">
+                                            <div className="title">Settings <MdOutlineSettings /></div>
                                         </div>
                                     </div>
-                                    <div class="icon-box gb d">
-                                        <div class="icon"><i class="far fa-chess-rook"></i></div>
-                                        <div class="text">
-                                            <div class="title">Help <MdOutlineHelpOutline /></div>
+                                    <div className="icon-box gb d">
+                                        <div className="icon"><i className="far fa-chess-rook"></i></div>
+                                        <div className="text">
+                                            <div className="title">Help <MdOutlineHelpOutline /></div>
                                         </div>
                                     </div>
-                                    <div class="icon-box gb d">
-                                        <div class="icon"><i class="far fa-chess-rook"></i></div>
-                                        <div class="text">
-                                            <div class="titlered" onClick={() => { onClickLogout() }}>Sign Out <VscSignOut /></div>
+                                    <div className="icon-box gb d">
+                                        <div className="icon"><i className="far fa-chess-rook"></i></div>
+                                        <div className="text">
+                                            <div className="titlered" onClick={() => { onClickLogout() }}>Sign Out <VscSignOut /></div>
                                         </div>
                                     </div>
-                                    <div class="sub-menu-holder"></div>
+                                    <div className="sub-menu-holder"></div>
                                 </div>
                             </div>
                         </nav>

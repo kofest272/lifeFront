@@ -22,9 +22,9 @@ const RegistrationForm = () => {
         formState: { errors, isValid }
     } = useForm({
         defaultValues: {
-            fullName: 'Denis Goptsii',
-            email: 'denis.goptsii@gmail.com',
-            password: '2024'
+            fullName: '',
+            email: '',
+            password: ''
         },
         mode: 'all'
     })

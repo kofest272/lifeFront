@@ -6,8 +6,13 @@
 }
 
 .calendarContainer {
-    margin-top: 100px;
     display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.calendarContainerPhone {
+    display: none;
     justify-content: center;
     width: 100%;
 }
@@ -117,4 +122,26 @@
     position: fixed;
     right: 0;
     bottom: 0;
+}
+
+.calendarAll {
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.switchWeeks {
+    button {
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        border: none;
+    }
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 50px;
 }

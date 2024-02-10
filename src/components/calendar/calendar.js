@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectIsAuth } from '../../redux/slices/auth';
-import { Navigate } from 'react-router-dom';
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 
 import { AiOutlineDelete } from "react-icons/ai";
 import { IoMdMove } from "react-icons/io";
 import { MdModeEdit } from "react-icons/md";
-import { FaCirclePlus } from "react-icons/fa6";
+import { FaCirclePlus, FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 
 import EditModal from './calendarTools/editTask';
 import CreateModal from './calendarTools/createTask';
@@ -20,16 +19,20 @@ import axios from '../../axios';
 import { fetchDeleteTask } from '../../redux/slices/task';
 
 const Calendar = () => {
-    const dispatch = useDispatch();
-    const isAuth = useSelector(selectIsAuth);
     const [week, setWeek] = useState([]);
     const [tasks, setTasks] = useState([]);
     const [modalEditActive, setModalEditActive] = useState(false);
     const [modalCreateActive, setModalCreateActive] = useState(false);
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const [snackbarMessage, setSnackbarMessage] = useState("");
-    const [loading, setLoading] = useState(true);  // Добавлено состояние loading
-    const userData = useSelector((state) => state.auth.data);
+    const [loading, setLoading] = useState(true);
+    const [currentWeekIndex, setCurrentWeekIndex] = useState(0);
+
+    const { data: userData } = useSelector((state) => state.auth);
+    const dispatch = useDispatch();
+    const isAuth = useSelector(selectIsAuth);
+
+
 
     const refreshPage = () => {
         window.location.reload();
@@ -69,16 +72,41 @@ const Calendar = () => {
     const getWeek = () => {
         const weekData = [];
         const date = new Date();
-        const todayDay = (date.getDay() + 6) % 7;
+        const todayDate = new Date(date.getFullYear(), date.getMonth(), date.getDate()); // Текущая дата без времени
+        const startOfWeek = new Date(date);
+        const todayDay = (date.getDay() + 6) % 7; // Корректируем индекс дня недели, чтобы воскресенье было 0
+        startOfWeek.setDate(startOfWeek.getDate() - todayDay + (currentWeekIndex * 7)); // Учитываем текущий день недели и номер недели
 
         for (let i = 0; i < 7; i++) {
-            const offset = i - todayDay;
-            const dateI = new Date(date);
-            dateI.setDate(date.getDate() + offset);
-            weekData.push(getInfo(dateI, offset === 0));
+            const dateI = new Date(startOfWeek);
+            dateI.setDate(startOfWeek.getDate() + i);
+            const currentDate = new Date(dateI.getFullYear(), dateI.getMonth(), dateI.getDate()); // Текущая дата без времени
+            weekData.push(getInfo(dateI, currentDate.getTime() === todayDate.getTime())); // Сравнение по точной дате
         }
 
         setWeek(weekData);
+    };
+
+
+
+
+    const goToPreviousWeek = () => {
+        setCurrentWeekIndex(prevIndex => prevIndex - 1);
+        console.log(week)
+    };
+
+    const goToNextWeek = () => {
+        setCurrentWeekIndex(prevIndex => prevIndex + 1);
+        console.log(week)
+    };
+
+    const dateForMobile = () => {
+        for (let i = 0; i < week.length; i++) {
+            if (week[i].active) {
+                break;
+            }
+            // console.log(i)
+        }
     };
 
     const checkTask = (day) => {
@@ -155,12 +183,13 @@ const Calendar = () => {
     useEffect(() => {
         if (isAuth) {
             getWeek();
-            fetchData(); // Вызовите fetchData при изменении isAuth
+            dateForMobile();
+            fetchData();
         }
-    }, [isAuth]);
+    }, [isAuth, currentWeekIndex]);
 
     if (loading) {
-        return <div className="loaderDiv"><div class="loader"></div></div>
+        return <div className="loaderDiv"><div className="loader"></div></div>
     }
 
     return (
@@ -170,23 +199,48 @@ const Calendar = () => {
                     <FaCirclePlus size="50px" />
                 </button>
             </div>
-            <div className="calendarContainer">
-                {daysNames.map((day, index) => (
-                    <div key={index} className="day-of-week">
-                        {week[index] && (
-                            <div className={week[index].active ? 'dayInfo activeDay' : 'dayInfo'}>
-                                <p>
-                                    <strong>{day}</strong>
-                                </p>
-                                <p>
-                                    {`${week[index].number}.${(week[index].month + 1).toString().padStart(2, '0')}`}
-                                </p>
-                            </div>
-                        )}
-                        {week[index] && checkTask(`${week[index].year}-${monthNames[week[index].month + 1]}-${numberNames[week[index].number]}`)}
-                    </div>
-                ))}
+            <div className="calendarAll">
+                <div className="switchWeeks">
+                    <button onClick={goToPreviousWeek}><FaAngleLeft size="20px" /></button>
+                    <h4>{`${week[0].number}.${(week[0].month + 1).toString().padStart(2, '0')}`}-{week[6].number}.{(week[6].month + 1).toString().padStart(2, '0')}</h4>
+                    <button onClick={goToNextWeek}><FaAngleRight size="20px" /></button>
+                </div>
+                <div className="calendarContainer">
+                    {daysNames.map((day, index) => (
+                        <div key={index} className={week[index].active ? 'day-of-week today' : 'day-of-week'}>
+                            {week[index] && (
+                                <div className={week[index].active ? 'dayInfo activeDay' : 'dayInfo'}>
+                                    <p>
+                                        <strong>{day}</strong>
+                                    </p>
+                                    <p>
+                                        {`${week[index].number}.${(week[index].month + 1).toString().padStart(2, '0')}`}
+                                    </p>
+                                </div>
+                            )}
+                            {week[index] && checkTask(`${week[index].year}-${monthNames[week[index].month + 1]}-${numberNames[week[index].number]}`)}
+                        </div>
+                    ))}
+                </div>
+                <div className="calendarContainerPhone">
+                    {daysNames.map((day, index) => (
+                        <div key={index} className={week[index].active ? 'day-of-week today' : 'day-of-week'}>
+                            {week[index] && (
+                                <div className={week[index].active ? 'dayInfo activeDay' : 'dayInfo'}>
+                                    <p>
+                                        <strong>{day}</strong>
+                                    </p>
+                                    <p>
+                                        {`${numberNames[week[index].number]}.${(week[index].month + 1).toString().padStart(2, '0')}`}
+                                    </p>
+                                </div>
+                            )}
+                            {week[index] && checkTask(`${week[index].year}-${monthNames[week[index].month + 1]}-${numberNames[week[index].number]}`)}
+                        </div>
+                    ))}
+                </div>
             </div>
+
             <CreateModal active={modalCreateActive} setActive={setModalCreateActive} />
 
             <Snackbar
