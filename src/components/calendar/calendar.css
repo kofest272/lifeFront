@@ -131,12 +131,17 @@
     width: 100%;
 }
 
+.clearBtn {
+    background-color: white;
+}
+
 .switchWeeks {
     button {
         display: flex;
         justify-content: center;
         align-content: center;
         border: none;
+        background-color: white;
     }
 
     display: flex;

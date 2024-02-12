@@ -255,9 +255,9 @@ const Calendar = () => {
             </div>
             <div className="calendarAll">
                 <div className="switchWeeks">
-                    <button onClick={goToPreviousWeek}><FaAngleLeft size="20px" /></button>
+                    <button onClick={goToPreviousWeek}><FaAngleLeft size="20px" style={{ backgroundColor: 'white' }} /></button>
                     <h4>{`${week[0].number}.${(week[0].month + 1).toString().padStart(2, '0')}`}-{week[6].number}.{(week[6].month + 1).toString().padStart(2, '0')}</h4>
-                    <button onClick={goToNextWeek}><FaAngleRight size="20px" /></button>
+                    <button onClick={goToNextWeek}><FaAngleRight size="20px" style={{ backgroundColor: 'white' }} /></button>
                 </div>
                 <div className="calendarContainer">
                     {calendarItems()}
