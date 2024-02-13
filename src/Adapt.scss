@@ -47,6 +47,10 @@
         color: white;
     }
 
+    .calendarAll {
+        margin-top: 0px !important;
+    }
+
     main {
         margin-top: -100px;
         background-image: none !important;
@@ -63,5 +67,4 @@
     .calendarContainerPhone {
         display: flex !important;
     }
-
 }

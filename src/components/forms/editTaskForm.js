@@ -12,6 +12,7 @@ import Alert from "@mui/material/Alert";
 
 import styles from "./style.scss";
 import { fetchEditTask } from "../../redux/slices/task";
+import { useNavigate } from "react-router-dom";
 
 const EditTask = ({ id, defaultValues }) => {
     const dispatch = useDispatch();
@@ -26,9 +27,11 @@ const EditTask = ({ id, defaultValues }) => {
             title: defaultValues.title || '',
             text: defaultValues.text || '',
             color: defaultValues.color || '',
+            finalDate: defaultValues.finalDate || '',
         },
         mode: 'all'
     });
+    const navigate = useNavigate();
 
     const handleSnackbarClose = () => {
         setSnackbarOpen(false);
@@ -37,14 +40,13 @@ const EditTask = ({ id, defaultValues }) => {
     const onSubmit = async (params) => {
         try {
             const data = await dispatch(fetchEditTask({ params, id }));
-
             if (data.error) {
                 throw new Error(`Error: ${data.error.message}`);
             }
 
             setSnackbarMessage('Task successfully edited');
             setSnackbarOpen(true);
-            window.location.reload();
+            return navigate("/");
         } catch (error) {
             setSnackbarMessage(error.message || 'Failed to edit task');
             setSnackbarOpen(true);
@@ -85,6 +87,15 @@ const EditTask = ({ id, defaultValues }) => {
                     helperText={errors.color?.message}
                     type="color"
                     {...register('color', { required: 'Укажите цвет' })}
+                />
+                <TextField
+                    className={styles.field}
+                    fullWidth
+                    error={Boolean(errors.finalDate?.message)}
+                    helperText={errors.finalDate?.message}
+                    type="date"
+                    defaultValue={defaultValues.finalDate.slice(0, 10)}
+                    {...register('finalDate', { required: 'Укажите дату' })}
                 />
                 <Button disabled={!isValid} type="submit" size="large" variant="contained" fullWidth>
                     Отредактировать

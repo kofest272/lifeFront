@@ -8,9 +8,11 @@ import { useForm } from "react-hook-form";
 
 import styles from "./style.scss";
 import { fetchAddTask } from "../../redux/slices/task";
+import { useNavigate } from "react-router-dom";
 
 const CreateTask = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const {
         register,
         handleSubmit,
@@ -24,11 +26,10 @@ const CreateTask = () => {
     })
 
     const refreshPage = () => {
-        window.location.reload();
+        return navigate("/")
     }
 
     const onSubmit = async (params) => {
-        console.log(params)
         const data = await dispatch(fetchAddTask(params));
 
         if (!data.payload) {

@@ -9,11 +9,10 @@ import Calendar from './components/calendar/calendar';
 
 import LoginForm from "./components/forms/loginForm";
 import RegistrationForm from './components/forms/registrationForm';
-import { fetchAuthMe, selectIsAuth } from './redux/slices/auth';
+import { fetchAuthMe } from './redux/slices/auth';
 
 function App() {
   const dispatch = useDispatch();
-  const isAuth = useSelector(selectIsAuth);
 
   React.useEffect(() => {
     dispatch(fetchAuthMe())

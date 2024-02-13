@@ -36,7 +36,8 @@ const Login = () => {
         }
 
         if ('token' in data.payload) {
-            window.localStorage.setItem('token', data.payload.token)
+            window.localStorage.setItem('token', data.payload.token);
+            window.location.reload();
         }
     }
 
@@ -72,7 +73,6 @@ const Login = () => {
                     </Button>
                     <p>Нету аккаунта? <Link to="/reg">Зарегистрироваться</Link></p>
                 </form>
-
             </Paper >
         </div>
 

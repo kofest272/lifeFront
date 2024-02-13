@@ -166,7 +166,7 @@ class Nav extends Component {
                     </div>
                 </nav>
                 <div className="mobileNav">
-                    <div className="CalendarContainer"><MdOutlineCalendarMonth size="20px" /><p>Calendar</p></div>
+                    <Link to="/calendar"><div className="CalendarContainer"><MdOutlineCalendarMonth size="20px" /><p>Calendar</p></div></Link>
                     <div className="HealthContainer"><MdHealthAndSafety size="20px" /><p>Health</p></div>
                     <div className="HelpContainer"><MdOutlineHelpOutline size="20px" /><p>Help</p></div>
                     <div className="SocialContainer"><IoShareSocialSharp size="20px" /><p>Social</p></div>

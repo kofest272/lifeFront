@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectIsAuth } from '../../redux/slices/auth';
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
+import { useNavigate } from 'react-router-dom';
 
 import { AiOutlineDelete } from "react-icons/ai";
 import { IoMdMove } from "react-icons/io";
@@ -32,23 +33,25 @@ const Calendar = () => {
     const { data: userData } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
     const isAuth = useSelector(selectIsAuth);
-
-
+    const navigate = useNavigate();
 
     const refreshPage = () => {
-        window.location.reload();
+        return navigate("/")
     }
 
     useEffect(() => {
         if (isAuth) {
             getWeek();
+        } else {
+            return navigate("/reg")
         }
     }, [isAuth]);
 
     const deleteTask = (id) => {
         if (window.confirm('Вы действительно хотите удалить?')) {
-            dispatch(fetchDeleteTask(id))
-            refreshPage()
+            dispatch(fetchDeleteTask(id)).then(() => {
+                refreshPage();
+            });
         }
     }
 
@@ -115,25 +118,16 @@ const Calendar = () => {
         }
 
         setWeekMobile(weekDataMobile);
-        console.log(weekDataMobile)
     };
 
     const checkTask = (day) => {
         try {
-            let availableTasks = [];
-            for (let i = 0; i < tasks.length; i++) {
-                if (tasks[i].user._id) {
-                    if (tasks[i].user._id === userData.userData._id) {
-                        availableTasks.push(tasks[i]);
-                    }
-                } else {
-                    continue;
-                }
-            }
+            let availableTasks = tasks.filter(task => task.user?._id === userData?.userData?._id);
             return tasksForDay(day, availableTasks);
         } catch (error) {
             setSnackbarMessage(error.message || 'Что-то пошло не так :(');
             setSnackbarOpen(true);
+            return null; // Ensure to return a value to prevent rendering issues
         }
     };
 
@@ -184,16 +178,17 @@ const Calendar = () => {
     };
 
     useEffect(() => {
-        if (!loading) {
-            fetchData();
+        if (isAuth && loading) {
+            fetchData(); // Получаем данные только если пользователь аутентифицирован и данные еще не загружены
         }
-    }, [loading]);
+    }, [isAuth, loading]);
 
     useEffect(() => {
         if (isAuth) {
             getWeek();
             dateForMobile();
-            fetchData();
+        } else {
+            navigate("/reg");
         }
     }, [isAuth, currentWeekIndex]);
 
