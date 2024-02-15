@@ -17,9 +17,13 @@ export const fetchDeleteTask = createAsyncThunk('tasks/fetchDelete', async (id) 
     return data;
 });
 
-export const fetchEditTask = createAsyncThunk('tasks/fetchEdit', async (params, id) => {
-    console.log(params)
+export const fetchEditTask = createAsyncThunk('tasks/fetchEdit', async (params) => {
     const { data } = await axios.patch(`/tasks/${params.id}`, params.params);
+    return data;
+});
+
+export const fetchToggleCompleteTask = createAsyncThunk('tasks/fetchToggleComplete', async (params) => {
+    const { data } = await axios.patch(`/tasks/complete/${params.id}`);
     return data;
 });
 

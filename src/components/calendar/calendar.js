@@ -89,9 +89,6 @@ const Calendar = () => {
         setWeek(weekData);
     };
 
-
-
-
     const goToPreviousWeek = () => {
         setCurrentWeekIndex(prevIndex => prevIndex - 1);
     };
@@ -125,7 +122,7 @@ const Calendar = () => {
         } catch (error) {
             setSnackbarMessage(error.message || 'Что-то пошло не так :(');
             setSnackbarOpen(true);
-            return null; // Ensure to return a value to prevent rendering issues
+            return null;
         }
     };
 

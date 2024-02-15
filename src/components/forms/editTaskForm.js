@@ -94,7 +94,6 @@ const EditTask = ({ id, defaultValues }) => {
                     error={Boolean(errors.finalDate?.message)}
                     helperText={errors.finalDate?.message}
                     type="date"
-                    defaultValue={defaultValues.finalDate.slice(0, 10)}
                     {...register('finalDate', { required: 'Укажите дату' })}
                 />
                 <Button disabled={!isValid} type="submit" size="large" variant="contained" fullWidth>

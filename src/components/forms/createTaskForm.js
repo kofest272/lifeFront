@@ -49,7 +49,7 @@ const CreateTask = () => {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <TextField
                     className={styles.field}
-                    label="title"
+                    label="Название задания"
                     error={Boolean(errors.title?.message)}
                     helperText={errors.title?.message}
                     {...register('title', { required: 'Укажите текст' })}
@@ -57,7 +57,7 @@ const CreateTask = () => {
                     fullWidth
                 />
                 <TextField className={styles.field}
-                    label="text"
+                    label="Описание задания"
                     fullWidth
                     error={Boolean(errors.text?.message)}
                     helperText={errors.text?.message}
@@ -65,7 +65,7 @@ const CreateTask = () => {
                     {...register('text', { required: 'Укажите текст' })}
                 />
                 <TextField className={styles.field}
-                    label="color"
+                    label="Цвет"
                     fullWidth
                     error={Boolean(errors.color?.message)}
                     helperText={errors.color?.message}
@@ -80,7 +80,7 @@ const CreateTask = () => {
                     {...register('finalDate', { required: 'Укажите дату' })}
                 />
                 <Button disabled={!isValid} type="submit" size="large" variant="contained" fullWidth>
-                    Войти
+                    Создать
                 </Button>
             </form>
         </>
