@@ -4,20 +4,18 @@ import { selectIsAuth } from '../../redux/slices/auth';
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import { useNavigate } from 'react-router-dom';
+import axios from '../../axios';
+import { fetchDeleteTask } from '../../redux/slices/task';
+import Task from './task';
 
-import { AiOutlineDelete } from "react-icons/ai";
-import { IoMdMove } from "react-icons/io";
-import { MdModeEdit } from "react-icons/md";
 import { FaCirclePlus, FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 
-import EditModal from './calendarTools/editTask';
 import CreateModal from './calendarTools/createTask';
 
 import './calendar.css';
 import '../../Adapt.scss';
 
-import axios from '../../axios';
-import { fetchDeleteTask } from '../../redux/slices/task';
+
 
 const Calendar = () => {
     const [week, setWeek] = useState([]);
@@ -152,29 +150,19 @@ const Calendar = () => {
     }
 
     const tasksForDay = (day, tasks) => {
-        const taskElements = [];
-        for (let i = 0; i < tasks.length; i++) {
-            let date = new Date(tasks[i].finalDate);
+        return tasks.map((task, index) => {
+            let date = new Date(task.finalDate);
             if (compareDates(day, date)) {
-                const data = tasks[i];
-                taskElements.push(
-                    <div key={i} className="task">
-                        <div className="colorTask" style={{ backgroundColor: `${data.color}` }}></div>
-                        <div className="info">
-                            <p className='titleTask'>{data.title}</p>
-                            <p className='subTask'>{data.text}</p>
-                        </div>
-                        <div className="tools">
-                            <div className="delete" onClick={() => deleteTask(data._id)}><AiOutlineDelete color="white" /></div>
-                            <div className="move"><IoMdMove color="white" /></div>
-                            <div className="edit" onClick={() => setModalEditActive(true)}><MdModeEdit color="white" /></div>
-                            <EditModal active={modalEditActive} setActive={setModalEditActive} id={data._id} defaultValues={data} />
-                        </div>
-                    </div>
+                return (
+                    <Task
+                        key={index}
+                        task={task}
+                        onDelete={deleteTask}
+                        onEdit={() => setModalEditActive(index)}
+                    />
                 );
             }
-        }
-        return taskElements;
+        });
     };
 
     useEffect(() => {
