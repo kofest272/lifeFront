@@ -14,6 +14,7 @@ const Task = ({ task, onDelete, onEdit }) => {
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const [snackbarMessage, setSnackbarMessage] = useState("");
     const [modalEditActive, setModalEditActive] = useState(false);
+    const [isChecked, setIsChecked] = useState(task.completed);
     const dispatch = useDispatch();
 
     const handleEditClick = () => {
@@ -32,6 +33,7 @@ const Task = ({ task, onDelete, onEdit }) => {
                 throw new Error(`Ошибка: ${data.error.message}`);
             }
 
+            setIsChecked(!isChecked);
             setSnackbarMessage('Задание успешно обновлено');
             setSnackbarOpen(true);
         } catch (error) {
@@ -50,10 +52,10 @@ const Task = ({ task, onDelete, onEdit }) => {
                 </div>
                 <div className="tools">
                     <div className="delete" onClick={() => onDelete(task._id)}><AiOutlineDelete color="white" /></div>
-                    <div class="checkbox-wrapper" onClick={toggleComplete}>
-                        <input id="_checkbox-26" type="checkbox" defaultChecked={task.completed ? true : false} />
-                        <label htmlFor="_checkbox-26">
-                            <div class="tick_mark"></div>
+                    <div className="checkbox-wrapper" onClick={toggleComplete}>
+                        <input id={`_checkbox-${task._id}`} type="checkbox" checked={isChecked} onChange={() => { }} />
+                        <label htmlFor={`_checkbox-${task._id}`}>
+                            <div className="tick_mark"></div>
                         </label>
                     </div>
                     <div className="edit" onClick={handleEditClick}><MdModeEdit color="white" /></div>
