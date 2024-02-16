@@ -50,9 +50,11 @@ const Task = ({ task, onDelete, onEdit }) => {
                 </div>
                 <div className="tools">
                     <div className="delete" onClick={() => onDelete(task._id)}><AiOutlineDelete color="white" /></div>
-                    <div className="checkbox-wrapper-7" onClick={toggleComplete}>
-                        <input className="tgl tgl-ios" id={`cb2-${task._id}`} type="checkbox" defaultChecked={task.completed} onChange={() => { }} />
-                        <label className="tgl-btn" htmlFor={`cb2-${task._id}`} />
+                    <div class="checkbox-wrapper" onClick={toggleComplete}>
+                        <input id="_checkbox-26" type="checkbox" defaultChecked={task.completed ? true : false} />
+                        <label htmlFor="_checkbox-26">
+                            <div class="tick_mark"></div>
+                        </label>
                     </div>
                     <div className="edit" onClick={handleEditClick}><MdModeEdit color="white" /></div>
                     <EditModal active={modalEditActive} setActive={setModalEditActive} id={task._id} defaultValues={task} />

@@ -19,7 +19,7 @@ const Welcome = () => {
     return (
         <div style={{ width: '100%', height: '1000px' }}>
             <main>
-                <p className="mainText">Change your <p className="bold">lifestyle</p></p>
+                <p className="mainText">Change your<br /> <strong>lifestyle</strong></p>
                 <div className="mainBtns">
                     <motion.button className="buttonTransparent" whileHover={{ scale: 1.1 }}>Read More</motion.button>
                     <Link to="/reg"><motion.button className="buttonBlue" whileHover={{ scale: 1.1 }}>Create account</motion.button></Link>
