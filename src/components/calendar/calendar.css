@@ -151,6 +151,22 @@
     height: 50px;
 }
 
+.switchWeeksPhone {
+    button {
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        border: none;
+        background-color: white;
+    }
+
+    display: none;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+}
+
 .checkbox-wrapper-7 .tgl {
     display: none;
 }

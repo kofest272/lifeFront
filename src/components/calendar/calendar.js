@@ -76,8 +76,8 @@ const Calendar = () => {
         const date = new Date();
         const todayDate = new Date(date.getFullYear(), date.getMonth(), date.getDate()); // Текущая дата без времени
         const startOfWeek = new Date(date);
-        const todayDay = (date.getDay() + 6) % 7; // Корректируем индекс дня недели, чтобы воскресенье было 0
-        startOfWeek.setDate(startOfWeek.getDate() - todayDay + (currentWeekIndex * 7)); // Учитываем текущий день недели и номер недели
+        const todayDay = (date.getDay() + 6) % 7;
+        startOfWeek.setDate(startOfWeek.getDate() - todayDay + (currentWeekIndex));
 
         for (let i = 0; i < 7; i++) {
             const dateI = new Date(startOfWeek);
@@ -89,28 +89,30 @@ const Calendar = () => {
         setWeek(weekData);
     };
 
-    const goToPreviousWeek = () => {
-        setCurrentWeekIndex(prevIndex => prevIndex - 1);
+    const goToPreviousWeek = (index) => {
+        setCurrentWeekIndex(prevIndex => prevIndex - index);
     };
 
-    const goToNextWeek = () => {
-        setCurrentWeekIndex(prevIndex => prevIndex + 1);
+    const goToNextWeek = (index) => {
+        setCurrentWeekIndex(prevIndex => prevIndex + index);
     };
 
     const dateForMobile = (today) => {
         const weekDataMobile = [];
-        const date = new Date();
-        const todayDate = new Date(date.getFullYear(), date.getMonth(), date.getDate()); // Текущая дата без времени
-        const startOfWeek = new Date(date);
-        const todayDay = (date.getDay() + 6) % 7; // Корректируем индекс дня недели, чтобы воскресенье было 0
-        startOfWeek.setDate(startOfWeek.getDate() - todayDay + (currentWeekIndex * 7)); // Учитываем текущий день недели и номер недели
 
-        for (let i = 0; i < 3; i++) {
-            const dateI = new Date(startOfWeek);
-            dateI.setDate(startOfWeek.getDate() + i);
-            const currentDate = new Date(dateI.getFullYear(), dateI.getMonth(), dateI.getDate());
-            weekDataMobile.push(getInfo(dateI, currentDate.getTime() === todayDate.getTime()));
-        }
+        const dateToday = new Date();
+        const dateCenter = new Date(dateToday);
+        const todayDay = (dateToday.getDay() + 6) % 7;
+        dateCenter.setDate(dateCenter.getDate() + (currentWeekIndex));
+        const todayDate = new Date(dateToday.getFullYear(), dateToday.getMonth(), dateToday.getDate());
+        const datePrew = new Date(dateCenter); // Create a copy of dateToday for the previous day
+        datePrew.setDate(dateCenter.getDate() - 1); // Set it to the previous day
+        const dateNext = new Date(dateCenter); // Create a copy of dateToday for the next day
+        dateNext.setDate(dateCenter.getDate() + 1); // Set it to the next day
+
+        weekDataMobile.unshift(getInfo(datePrew, false)); // Add the previous day info to the beginning of the array
+        weekDataMobile.push(getInfo(dateCenter, dateCenter.getTime() === dateToday.getTime())); // Add today's info to the end of the array
+        weekDataMobile.push(getInfo(dateNext, false)); // Add the next day info to the end of the array
 
         setWeekMobile(weekDataMobile);
     };
@@ -164,7 +166,7 @@ const Calendar = () => {
 
     useEffect(() => {
         if (isAuth && loading) {
-            fetchData(); // Получаем данные только если пользователь аутентифицирован и данные еще не загружены
+            fetchData();
         }
     }, [isAuth, loading]);
 
@@ -211,7 +213,7 @@ const Calendar = () => {
                     {dayData && (
                         <div className={dayData.active ? 'dayInfo activeDay' : 'dayInfo'}>
                             <p>
-                                <strong>{daysNames[dayData.day]}</strong> {/* Use dayData.day to access day index */}
+                                <strong>{daysNames[dayData.day]}</strong>
                             </p>
                             <p>
                                 {`${numberNames[dayData.number]}.${(dayData.month + 1).toString().padStart(2, '0')}`}
@@ -234,10 +236,15 @@ const Calendar = () => {
                 </button>
             </div>
             <div className="calendarAll">
-                <div className="switchWeeks">
-                    <button onClick={goToPreviousWeek}><FaAngleLeft size="20px" style={{ backgroundColor: 'white' }} /></button>
+                <div className="switchWeeksPhone">
+                    <button onClick={() => goToPreviousWeek(3)}><FaAngleLeft size="20px" style={{ backgroundColor: 'white' }} /></button>
                     <h4>{`${week[0].number}.${(week[0].month + 1).toString().padStart(2, '0')}`}-{week[6].number}.{(week[6].month + 1).toString().padStart(2, '0')}</h4>
-                    <button onClick={goToNextWeek}><FaAngleRight size="20px" style={{ backgroundColor: 'white' }} /></button>
+                    <button onClick={() => goToNextWeek(3)}><FaAngleRight size="20px" style={{ backgroundColor: 'white' }} /></button>
+                </div>
+                <div className="switchWeeks">
+                    <button onClick={() => goToPreviousWeek(7)}><FaAngleLeft size="20px" style={{ backgroundColor: 'white' }} /></button>
+                    <h4>{`${week[0].number}.${(week[0].month + 1).toString().padStart(2, '0')}`}-{week[6].number}.{(week[6].month + 1).toString().padStart(2, '0')}</h4>
+                    <button onClick={() => goToNextWeek(7)}><FaAngleRight size="20px" style={{ backgroundColor: 'white' }} /></button>
                 </div>
                 <div className="calendarContainer">
                     {calendarItems()}

@@ -32,10 +32,10 @@ const Task = ({ task, onDelete, onEdit }) => {
                 throw new Error(`Ошибка: ${data.error.message}`);
             }
 
-            setSnackbarMessage('Задание успешно выполнено');
+            setSnackbarMessage('Задание успешно обновлено');
             setSnackbarOpen(true);
         } catch (error) {
-            setSnackbarMessage(error.message || 'Произошла ошибка');
+            setSnackbarMessage(error.message || 'Произошла ошибка ', error);
             setSnackbarOpen(true);
         }
     }
