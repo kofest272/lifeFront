@@ -4,15 +4,17 @@ import { selectIsAuth } from '../../redux/slices/auth';
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import { useNavigate } from 'react-router-dom';
-import axios from '../../axios';
 import { fetchDeleteTask } from '../../redux/slices/task';
-import Task from './task';
 
 import { FaCirclePlus, FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 
 import CreateModal from './calendarTools/createTask';
+import Task from './task';
+import Stats from './statsHealth';
+import axios from '../../axios';
 
 import './calendar.css';
+import 'react-circular-progressbar/dist/styles.css';
 import '../../Adapt.scss';
 
 
@@ -21,6 +23,7 @@ const Calendar = () => {
     const [week, setWeek] = useState([]);
     const [weekMobile, setWeekMobile] = useState([]);
     const [tasks, setTasks] = useState([]);
+    const [stats, setStats] = useState([]);
     const [modalEditActive, setModalEditActive] = useState(false);
     const [modalCreateActive, setModalCreateActive] = useState(false);
     const [snackbarOpen, setSnackbarOpen] = useState(false);
@@ -102,9 +105,7 @@ const Calendar = () => {
 
         const dateToday = new Date();
         const dateCenter = new Date(dateToday);
-        const todayDay = (dateToday.getDay() + 6) % 7;
         dateCenter.setDate(dateCenter.getDate() + (currentWeekIndex));
-        const todayDate = new Date(dateToday.getFullYear(), dateToday.getMonth(), dateToday.getDate());
         const datePrew = new Date(dateCenter); // Create a copy of dateToday for the previous day
         datePrew.setDate(dateCenter.getDate() - 1); // Set it to the previous day
         const dateNext = new Date(dateCenter); // Create a copy of dateToday for the next day
@@ -130,8 +131,10 @@ const Calendar = () => {
 
     const fetchData = async () => {
         try {
-            const response = await axios.get('/tasks');
-            setTasks(response.data);
+            const tasks = await axios.get('/tasks');
+            const stats = await axios.get('/stats');
+            setTasks(tasks.data);
+            setStats(stats.data);
         } catch (error) {
             console.error('Error fetching data:', error);
             setSnackbarMessage('Ошибка при загрузке данных');
@@ -145,8 +148,13 @@ const Calendar = () => {
         const dt1 = new Date(date1);
         const dt2 = new Date(date2);
 
-        return dt1.getTime() === dt2.getTime();
+        const sameDay = dt1.getDate() === dt2.getDate();
+        const sameMonth = dt1.getMonth() === dt2.getMonth();
+        const sameYear = dt1.getFullYear() === dt2.getFullYear();
+
+        return sameDay && sameMonth && sameYear;
     }
+
 
     const tasksForDay = (day, tasks) => {
         return tasks.map((task, index) => {
@@ -159,6 +167,18 @@ const Calendar = () => {
                         onDelete={deleteTask}
                         onEdit={() => setModalEditActive(index)}
                     />
+                );
+            }
+        });
+    };
+
+    const statsForDay = (day) => {
+        let todayStats = stats.filter(task => task.user?._id === userData?.userData?._id);
+        return todayStats.map((statsDB, index) => {
+            let date = new Date(statsDB.day);
+            if (compareDates(day, date)) {
+                return (
+                    <Stats stats={statsDB} index={index} />
                 );
             }
         });
@@ -197,6 +217,7 @@ const Calendar = () => {
                             </p>
                         </div>
                     )}
+                    {week[index] && statsForDay(`${week[index].year}-${monthNames[week[index].month + 1]}-${numberNames[week[index].number]}`)}
                     {week[index] && checkTask(`${week[index].year}-${monthNames[week[index].month + 1]}-${numberNames[week[index].number]}`)}
                 </div>
             ))
@@ -220,6 +241,7 @@ const Calendar = () => {
                             </p>
                         </div>
                     )}
+                    {dayData && statsForDay(`${dayData.year}-${monthNames[dayData.month + 1]}-${numberNames[dayData.number]}`)}
                     {dayData && checkTask(`${dayData.year}-${monthNames[dayData.month + 1]}-${numberNames[dayData.number]}`)}
                 </div>
             );

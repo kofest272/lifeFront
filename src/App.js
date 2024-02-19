@@ -10,6 +10,7 @@ import Calendar from './components/calendar/calendar';
 import LoginForm from "./components/forms/loginForm";
 import RegistrationForm from './components/forms/registrationForm';
 import { fetchAuthMe } from './redux/slices/auth';
+import Health from './components/health/health';
 
 function App() {
   const dispatch = useDispatch();
@@ -27,6 +28,7 @@ function App() {
           <Route path="/login" element={<LoginForm />} />
           <Route path="/reg" element={<RegistrationForm />} />
           <Route path="/calendar" element={<Calendar />} />
+          <Route path="/health" element={<Health />} />
         </Routes>
       </div>
     </Router>

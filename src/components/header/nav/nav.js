@@ -57,7 +57,7 @@ class Nav extends Component {
                     </div>
                     <div className="menu-item">
                         <div className="menu-text">
-                            Health
+                            <Link to="/health"><p>Health</p></Link>
                         </div>
                         <div className="sub-menu double">
                             <div className="icon-box gb a">
@@ -167,7 +167,7 @@ class Nav extends Component {
                 </nav>
                 <div className="mobileNav">
                     <Link to="/calendar"><div className="CalendarContainer"><MdOutlineCalendarMonth size="20px" /><p>Calendar</p></div></Link>
-                    <div className="HealthContainer"><MdHealthAndSafety size="20px" /><p>Health</p></div>
+                    <Link to="/health"><div className="HealthContainer"><MdHealthAndSafety size="20px" /><p>Health</p></div></Link>
                     <div className="HelpContainer"><MdOutlineHelpOutline size="20px" /><p>Help</p></div>
                     <div className="SocialContainer"><IoShareSocialSharp size="20px" /><p>Social</p></div>
                 </div>

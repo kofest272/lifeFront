@@ -75,4 +75,29 @@
     .switchWeeksPhone {
         display: flex !important;
     }
+
+    .statsContainer {
+        flex-wrap: wrap !important;
+        height: 240px !important;
+
+        .statsFood {
+            width: 50% !important;
+            height: 50% !important;
+        }
+
+        .statsWater {
+            width: 50% !important;
+            height: 50% !important;
+        }
+
+        .statsWeight {
+            width: 50% !important;
+            height: 50% !important;
+        }
+
+        .statsActivity {
+            width: 50% !important;
+            height: 50% !important;
+        }
+    }
 }
