@@ -178,11 +178,23 @@ const Calendar = () => {
             let date = new Date(statsDB.day);
             if (compareDates(day, date)) {
                 return (
-                    <Stats stats={statsDB} index={index} />
+                    <Stats key={index} stats={statsDB} index={index} />
                 );
+            } else {
+                const defaultValuesStats = {
+                    day: day,
+                    calories: 0,
+                    water: 0,
+                    weight: 0,
+                    activity: 0
+                }
+                return (
+                    <Stats key={index} stats={defaultValuesStats} index={index} />
+                )
             }
         });
     };
+
 
     useEffect(() => {
         if (isAuth && loading) {

@@ -11,11 +11,16 @@ import './header.scss';
 class Header extends Component {
     render() {
         return (
-            <header>
-                <Link to="/"><img src={logo} alt="" className="mainLogo" /></Link>
-                <Nav />
-                <Profile />
-            </header>
+            <div className="headerToCenter">
+                <header>
+                    <div className="logoDiv">
+                        <Link to="/"><img src={logo} alt="" className="mainLogo" /></Link>
+                    </div>
+                    <Nav />
+                    <Profile />
+                </header>
+            </div>
+
         )
     }
 }

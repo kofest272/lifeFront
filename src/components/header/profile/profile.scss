@@ -1,3 +1,5 @@
+@import url('https://fonts.cdnfonts.com/css/general-sans');
+
 .containerProfile {
     .profile {
         display: flex;
@@ -5,15 +7,6 @@
         align-items: center;
         width: 150px;
         height: 80px;
-    }
-
-    .buttonSignup {
-        width: 150px;
-        color: white;
-        background: none;
-        border: 0px;
-        font-size: 20px;
-        font-weight: 500;
     }
 
     .nav {
@@ -468,4 +461,17 @@
     #info-box a:hover {
         color: rgba(255, 255, 255, 0.5);
     }
+}
+
+.buttonSignup {
+    width: 100px;
+    color: white;
+    background: none;
+    border: 0px;
+    font-size: 16px;
+    font-family: 'General Sans', sans-serif;
+}
+
+.buttonSignup:hover {
+    color: rgba(255, 255, 255, 0.5);
 }

@@ -30,7 +30,7 @@ const Profile = () => {
                         <nav id="menu">
                             <div className="menu-item">
                                 <div className="menu-text">
-                                    <MdAccountCircle style={{ color: 'white', width: '50px', height: '50px' }} />
+                                    <MdAccountCircle style={{ color: 'white', width: '40px', height: '40px' }} />
                                 </div>
                                 <div className="sub-menu">
                                     <div className="icon-box gb d">

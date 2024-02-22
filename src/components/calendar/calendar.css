@@ -25,7 +25,7 @@
     padding: 5px;
     font-family: Arial, Helvetica, sans-serif;
     width: 100%;
-    border-right: 1px solid #47718b85;
+    border-right: 1px solid #0000002d;
     min-height: calc(100vh + 400px);
 }
 
@@ -283,7 +283,6 @@
 .editZone {
     margin-top: 180px;
     position: absolute;
-    width: 100%;
     display: flex;
     justify-content: center;
 }
@@ -298,6 +297,12 @@
     background-color: #333333;
     border-radius: 100%;
     color: white;
+    cursor: pointer;
+}
+
+.textStats {
+    font-weight: 600;
+    font-size: 20px;
 }
 
 .statsContainer {
@@ -309,6 +314,7 @@
     overflow: hidden;
     color: white;
     flex-wrap: wrap;
+    margin-bottom: 20px;
 
     p {
         height: 5px;
@@ -354,7 +360,8 @@
         align-items: center;
         justify-content: center;
         flex-direction: column;
-        gap: 5px;
+        gap: 15px;
+        padding-bottom: 13px;
     }
 
     .statsActivity {

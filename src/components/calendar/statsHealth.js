@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import { CircularProgressbarWithChildren, buildStyles } from 'react-circular-progressbar';
+import EditModalStats from './calendarTools/editModalStats';
 
 import { FaWeightScale } from "react-icons/fa6";
 import { IoFastFoodOutline } from "react-icons/io5";
@@ -7,15 +9,15 @@ import { FaRunning } from "react-icons/fa";
 
 import './calendar.css'
 
-const Stats = (data) => {
-    const date = data.stats;
-    const index = data.index;
+const Stats = ({ stats, index }) => {
+    const [modalEditStats, setModalEditStats] = useState(false);
+    const data = stats;
     return (
         <>
             <div className="statsContainer" key={index}>
                 <div className="statsFood">
                     <div className="circle">
-                        <CircularProgressbarWithChildren value={10} styles={buildStyles({
+                        <CircularProgressbarWithChildren value={(data.calories / 3017) * 100} styles={buildStyles({
                             strokeLinecap: 'butt',
                             textSize: '16px',
                             pathTransitionDuration: 0.5,
@@ -29,14 +31,14 @@ const Stats = (data) => {
                         </CircularProgressbarWithChildren>
                     </div>
                     <div className="infoStats">
-                        <p>{date.calories}</p>
+                        <p>{data.calories}</p>
                         <div className="line"></div>
                         <p className='bold'>3017</p>
                     </div>
                 </div>
                 <div className="statsWater">
                     <div className="circle">
-                        <CircularProgressbarWithChildren value={50} styles={buildStyles({
+                        <CircularProgressbarWithChildren value={(data.water / 2) * 100} styles={buildStyles({
                             strokeLinecap: 'butt',
                             textSize: '16px',
                             pathTransitionDuration: 0.5,
@@ -50,12 +52,14 @@ const Stats = (data) => {
                         </CircularProgressbarWithChildren>
                     </div>
                     <div className="infoStats">
-                        <bold>{date.water}</bold>
+                        <p>{data.water}</p>
+                        <div className="line"></div>
+                        <p className='bold'>2</p>
                     </div>
                 </div>
                 <div className="statsWeight">
                     <div className="circle">
-                        <CircularProgressbarWithChildren value={30} styles={buildStyles({
+                        <CircularProgressbarWithChildren value={0} styles={buildStyles({
                             strokeLinecap: 'butt',
                             textSize: '16px',
                             pathTransitionDuration: 0.5,
@@ -69,12 +73,12 @@ const Stats = (data) => {
                         </CircularProgressbarWithChildren>
                     </div>
                     <div className="infoStats">
-                        <bold>62kg</bold>
+                        <p className='textStats'>{data.weight}</p>
                     </div>
                 </div>
                 <div className="statsActivity">
                     <div className="circle">
-                        <CircularProgressbarWithChildren value={80} styles={buildStyles({
+                        <CircularProgressbarWithChildren value={(data.activity / 2417) * 100} styles={buildStyles({
                             strokeLinecap: 'butt',
                             textSize: '16px',
                             pathTransitionDuration: 0.5,
@@ -88,16 +92,17 @@ const Stats = (data) => {
                         </CircularProgressbarWithChildren>
                     </div>
                     <div className="infoStats">
-                        <p>{date.activity}</p>
+                        <p>{data.activity}</p>
                         <div className="line"></div>
-                        <bold>2417</bold>
+                        <p className='bold'>2417</p>
                     </div>
                 </div>
             </div>
-            <div className="editZone">
+            <div className="editZone" onClick={() => setModalEditStats(true)}>
                 <div className="editCircle">
                     <MdOutlineEdit size="20px" />
                 </div>
+                <EditModalStats active={modalEditStats} setActive={setModalEditStats} defaultValues={data} />
             </div>
         </>
     )
