@@ -53,12 +53,6 @@
         min-height: 7.5em;
     }
 
-    .menu-text .arrow {
-        animation: rotateArrowOut 0.2s;
-        margin-left: 5px;
-        margin-top: 5px;
-    }
-
     @keyframes rotateArrowIn {
         0% {
             rotate: 0deg;
@@ -76,13 +70,6 @@
 
         100% {
             rotate: 0deg;
-        }
-    }
-
-    .menu-text:hover {
-        .arrow {
-            animation: rotateArrowIn 0.2s;
-            rotate: 180deg;
         }
     }
 
@@ -129,13 +116,6 @@
         width: 100%;
     }
 
-    nav .menu-item:hover~#sub-menu-container #sub-menu-holder {
-        animation: clipPath 0.25s ease-out 1 forwards;
-        transition: clip-path 0.25s ease-out, left 0.15s ease-out, height 0.15s ease-out;
-        opacity: 1;
-        right: auto;
-    }
-
     nav .menu-item:nth-of-type(1):hover~#sub-menu-container #sub-menu-holder,
     nav .menu-item:nth-of-type(4):hover~#sub-menu-container #sub-menu-holder {
         clip-path: inset(0 28.75em 0 0 round 10px);
@@ -170,6 +150,7 @@
         background-color: white;
         position: absolute;
         top: 7em;
+        min-width: 15.5em;
         color: rgba(0, 0, 0, 0.5);
         border-radius: 10px;
         pointer-events: none;
@@ -180,26 +161,18 @@
         opacity: 0;
         font-weight: initial;
         transition: all 0.25s ease-out, opacity 0.25s ease-in, margin-left 0.25s ease-out, clip-path 0.15s ease-out;
-    }
-
-    .menu-item .sub-menu.double {
-        min-width: 41.25em;
-        height: 18.75em;
-        display: grid;
-        grid-template-columns: 54% 50%;
-    }
-
-    .menu-item .sub-menu.triple {
-        min-width: 41.25em;
-        height: 25em;
-        display: grid;
-        padding: 1.5em 2.5em;
-        grid-template-columns: 55% 45%;
+        background: rgba(87, 87, 87, 0.423);
+        border-radius: 16px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(10.9px) !important;
+        -webkit-backdrop-filter: blur(10.9px) !important;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 1.5em 1.5em 0em 1.5em;
     }
 
     .menu-item:hover .sub-menu {
         pointer-events: all;
-        clip-path: inset(0 0 0 0);
+        clip-path: inset(0 0 0 0)
     }
 
     .menu-text:after {
@@ -215,31 +188,9 @@
         border-style: solid;
     }
 
-    .menu-item:hover .menu-text:after {
-        bottom: 0.5em;
-        opacity: 1;
-        transition: bottom 0.25s ease-out, opacity 0.01s ease-out 0.15s;
-    }
-
     .menu-item:hover .sub-menu {
         opacity: 1;
         margin-left: 0;
-    }
-
-    .menu-item:hover~#sub-menu-container #sub-menu-holder {
-        transition: transform 0.25s ease-out, opacity 0.25s ease-out, clip-path 0.25s ease-out;
-    }
-
-    @keyframes clipPath {
-        0% {
-            opacity: 0;
-        }
-
-        100% {
-            transform: rotateX(0deg) scale(1);
-            top: 4.5em;
-            opacity: 1;
-        }
     }
 
     /* Menu specific */
@@ -249,7 +200,7 @@
         align-items: center;
         text-align: center;
         font-weight: 500;
-        color: rgb(44 70 86);
+        color: #E5E5E8;
         margin: 0 0 0.25em 0;
         gap: 6px;
     }
@@ -260,9 +211,13 @@
         align-items: center;
         text-align: center;
         font-weight: 500;
-        color: rgb(112, 0, 0);
+        color: rgb(226, 0, 0);
         margin: 0 0 0.25em 0;
         gap: 6px;
+    }
+
+    .menu-item .titlered:hover {
+        color: rgb(178, 0, 0);
     }
 
     .menu-item .icon-box * {
@@ -346,15 +301,10 @@
         background-image: linear-gradient(45deg, #808080 35%, #bbbbbb 75%);
     }
 
-    .menu-item .icon-box:hover .text i {
-        clip-path: inset(0 0 0 0);
-        transition: clip-path 0.1s ease-out;
-    }
-
     .menu-item .icon-box:hover .icon,
     .menu-item .icon-box:hover .title,
     .menu-item .icon-box:hover .sub-text {
-        color: rgb(89 110 123);
+        color: rgb(172, 172, 172);
     }
 
     #sub-menu-bottom {
@@ -419,7 +369,7 @@
     }
 
     .sub-menu .box a:hover {
-        color: rgb(44 70 86);
+        color: rgb(117, 24, 24);
     }
 
     .box {
@@ -429,10 +379,6 @@
     .icon.big i {
         font-size: 1.25em;
         top: 0.2em;
-    }
-
-    nav .menu-item.highlight:hover~#sub-menu-container #sub-menu-holder #sub-menu-bottom {
-        opacity: 1;
     }
 
     #info-box {
@@ -459,7 +405,7 @@
     }
 
     #info-box a:hover {
-        color: rgba(255, 255, 255, 0.5);
+        color: rgba(187, 81, 81, 0.5);
     }
 }
 

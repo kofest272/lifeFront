@@ -9,6 +9,7 @@ import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import { useForm } from "react-hook-form";
 import { fetchAuth } from "../../redux/slices/auth";
+import { createTheme, ThemeProvider } from "@mui/material";
 
 import styles from "./style.scss";
 
@@ -45,35 +46,56 @@ const Login = () => {
         return <Navigate to="/" />
     }
 
+    const theme = createTheme({
+        palette: {
+            mode: 'dark',
+            primary: {
+                main: '#3f51b5',
+                light: '#3d4fb7',
+                dark: '#3244b1',
+            },
+            secondary: {
+                main: '#6366F1',
+            },
+
+        },
+        typography: {
+            fontFamily: 'Montserrat'
+        },
+    });
+
     return (
         <div className="containerToCenter">
-            <Paper className="root">
-                <Typography classes={{ root: styles.titleForm }} variant="h5">
-                    Вход в аккаунт
-                </Typography>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <TextField
-                        className={styles.field}
-                        label="E-Mail"
-                        error={Boolean(errors.email?.message)}
-                        helperText={errors.email?.message}
-                        {...register('email', { required: 'Укажите почту' })}
-                        type="email"
-                        fullWidth
-                    />
-                    <TextField className={styles.field}
-                        label="Пароль"
-                        fullWidth
-                        error={Boolean(errors.password?.message)}
-                        helperText={errors.password?.message}
-                        {...register('password', { required: 'Укажите пароль' })}
-                    />
-                    <Button disabled={!isValid} type="submit" size="large" variant="contained" fullWidth>
-                        Войти
-                    </Button>
-                    <p>Нету аккаунта? <Link to="/reg">Зарегистрироваться</Link></p>
-                </form>
-            </Paper >
+            <ThemeProvider theme={theme}>
+                <Paper className="root">
+                    <Typography classes={{ root: styles.titleForm }} variant="h5">
+                        Вход в аккаунт
+                    </Typography>
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                        <TextField
+                            className={styles.field}
+                            label="E-Mail"
+                            error={Boolean(errors.email?.message)}
+                            helperText={errors.email?.message}
+                            {...register('email', { required: 'Укажите почту' })}
+                            type="email"
+                            fullWidth
+                        />
+                        <TextField className={styles.field}
+                            label="Пароль"
+                            fullWidth
+                            error={Boolean(errors.password?.message)}
+                            helperText={errors.password?.message}
+                            {...register('password', { required: 'Укажите пароль' })}
+                        />
+                        <Button disabled={!isValid} type="submit" size="large" variant="contained" fullWidth>
+                            Войти
+                        </Button>
+                        <p style={{ fontFamily: 'Montserrat' }}>Нету аккаунта? <Link to="/reg">Зарегистрироваться</Link></p>
+                    </form>
+                </Paper >
+            </ThemeProvider>
+
         </div>
 
     );

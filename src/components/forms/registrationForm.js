@@ -12,6 +12,7 @@ import { fetchRegister, selectIsAuth } from '../../redux/slices/auth';
 import { useForm } from 'react-hook-form';
 import { Navigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
+import { createTheme, ThemeProvider } from "@mui/material";
 
 const RegistrationForm = () => {
     const isAuth = useSelector(selectIsAuth);
@@ -41,44 +42,62 @@ const RegistrationForm = () => {
         }
     }
 
+    const theme = createTheme({
+        palette: {
+            mode: 'dark',
+            primary: {
+                main: '#3f51b5',
+                light: '#3d4fb7',
+                dark: '#3244b1',
+            },
+            secondary: {
+                main: '#6366F1',
+            },
+
+        },
+        typography: {
+            fontFamily: 'Montserrat'
+        },
+    });
+
     if (isAuth) {
         return <Navigate to="/" />
     }
+
     return (
         <div className="containerToCenter">
-            <Paper className="root">
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <Typography classes={{ root: styles.titleForm }} variant="h5">
-                        Создание аккаунта
-                    </Typography>
-                    <div className="avatar">
-                        <Avatar sx={{ width: 100, height: 100 }} />
-                    </div>
-                    <TextField
-                        error={Boolean(errors.fullName?.message)}
-                        helperText={errors.fullName?.message}
-                        {...register('fullName', { required: 'Укажите имя' })}
-                        className={styles.field}
-                        label="Полное имя" fullWidth />
-                    <TextField
-                        error={Boolean(errors.email?.message)}
-                        helperText={errors.email?.message}
-                        type="email"
-                        {...register('email', { required: 'Укажите email' })}
-                        className={styles.field}
-                        label="E-Mail" fullWidth />
-                    <TextField
-                        error={Boolean(errors.password?.message)}
-                        helperText={errors.password?.message}
-                        {...register('password', { required: 'Укажите пароль' })}
-                        className={styles.field}
-                        label="Пароль" fullWidth />
-                    <Button disabled={!isValid} type="submit" size="large" variant="contained" fullWidth>
-                        Зарегистрироваться
-                    </Button>
-                    <p>Уже есть аккаунт? <Link to="/login">Авторизоваться</Link></p>
-                </form>
-            </Paper>
+            <ThemeProvider theme={theme}>
+                <Paper className="root">
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                        <Typography classes={{ root: styles.titleForm }} variant="h5">
+                            Создание аккаунта
+                        </Typography>
+                        <TextField
+                            error={Boolean(errors.fullName?.message)}
+                            helperText={errors.fullName?.message}
+                            {...register('fullName', { required: 'Укажите имя' })}
+                            className={styles.field}
+                            label="Полное имя" fullWidth />
+                        <TextField
+                            error={Boolean(errors.email?.message)}
+                            helperText={errors.email?.message}
+                            type="email"
+                            {...register('email', { required: 'Укажите email' })}
+                            className={styles.field}
+                            label="E-Mail" fullWidth />
+                        <TextField
+                            error={Boolean(errors.password?.message)}
+                            helperText={errors.password?.message}
+                            {...register('password', { required: 'Укажите пароль' })}
+                            className={styles.field}
+                            label="Пароль" fullWidth />
+                        <Button disabled={!isValid} type="submit" size="large" variant="contained" fullWidth>
+                            Зарегистрироваться
+                        </Button>
+                        <p style={{ fontFamily: 'Montserrat' }}>Уже есть аккаунт? <Link to="/login">Авторизоваться</Link></p>
+                    </form>
+                </Paper>
+            </ThemeProvider>
         </div>
 
     );

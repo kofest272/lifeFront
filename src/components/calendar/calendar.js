@@ -13,7 +13,7 @@ import Task from './task';
 import Stats from './statsHealth';
 import axios from '../../axios';
 
-import './calendar.css';
+import './calendar.scss';
 import 'react-circular-progressbar/dist/styles.css';
 import '../../Adapt.scss';
 
@@ -222,7 +222,7 @@ const Calendar = () => {
                     {week[index] && (
                         <div className={week[index].active ? 'dayInfo activeDay' : 'dayInfo'}>
                             <p>
-                                <strong>{day}</strong>
+                                <div className='dayText'>{day}</div>
                             </p>
                             <p>
                                 {`${week[index].number}.${(week[index].month + 1).toString().padStart(2, '0')}`}
@@ -246,7 +246,7 @@ const Calendar = () => {
                     {dayData && (
                         <div className={dayData.active ? 'dayInfo activeDay' : 'dayInfo'}>
                             <p>
-                                <strong>{daysNames[dayData.day]}</strong>
+                                <div className='dayText'>{daysNames[dayData.day]}</div>
                             </p>
                             <p>
                                 {`${numberNames[dayData.number]}.${(dayData.month + 1).toString().padStart(2, '0')}`}

@@ -8,7 +8,7 @@ import './health.css'
 const Health = () => {
     return (
         <div className="toCenter">
-            <FaRunning size="100px" />
+            <div className="orangeDiv"></div>
         </div>
 
     )

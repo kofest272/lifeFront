@@ -53,12 +53,6 @@ nav .menu-item {
     letter-spacing: 0.5px;
 }
 
-.menu-text .arrow {
-    animation: rotateArrowOut 0.2s;
-    margin-left: 5px;
-    margin-top: 5px;
-}
-
 @keyframes rotateArrowIn {
     0% {
         rotate: 0deg;
@@ -132,23 +126,6 @@ nav .menu-text a:hover {
     width: 100%;
 }
 
-.menu-item .sub-menu {
-    position: absolute;
-    top: 7em;
-    color: rgba(0, 0, 0, 0.5);
-    border-radius: 10px;
-    min-width: 27.5em;
-    pointer-events: none;
-    box-sizing: border-box;
-    z-index: 999;
-    margin-left: -5em;
-    clip-path: inset(0 10em 10em 15em);
-    opacity: 0;
-    font-weight: initial;
-    padding: 1.5em;
-    transition: all 0.25s ease-out, opacity 0.25s ease-in, margin-left 0.25s ease-out, clip-path 0.15s ease-out;
-}
-
 .menu-item .sub-menu.double {
     min-width: 41.25em;
     height: 18.75em;
@@ -167,21 +144,6 @@ nav .menu-text a:hover {
 .menu-item:hover .sub-menu {
     pointer-events: all;
     clip-path: inset(0 0 0 0);
-}
-
-.menu-item:hover .menu-text:after {
-    bottom: 0.5em;
-    opacity: 1;
-    transition: bottom 0.25s ease-out, opacity 0.01s ease-out 0.15s;
-}
-
-.menu-item:hover .sub-menu {
-    opacity: 1;
-    margin-left: 0;
-}
-
-.menu-item:hover~#sub-menu-container #sub-menu-holder {
-    transition: transform 0.25s ease-out, opacity 0.25s ease-out, clip-path 0.25s ease-out;
 }
 
 @keyframes clipPath {
@@ -289,10 +251,6 @@ nav .menu-text a:hover {
     background-image: linear-gradient(45deg, #808080 35%, #bbbbbb 75%);
 }
 
-.menu-item .icon-box:hover .text i {
-    clip-path: inset(0 0 0 0);
-    transition: clip-path 0.1s ease-out;
-}
 
 .menu-item .icon-box:hover .icon,
 .menu-item .icon-box:hover .title,
@@ -372,10 +330,6 @@ nav .menu-item:nth-of-type(3).highlight:hover~#sub-menu-container #sub-menu-hold
 .icon.big i {
     font-size: 1.25em;
     top: 0.2em;
-}
-
-nav .menu-item.highlight:hover~#sub-menu-container #sub-menu-holder #sub-menu-bottom {
-    opacity: 1;
 }
 
 #info-box {

@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 
 import { AiOutlineDelete } from "react-icons/ai";
 import { MdModeEdit } from "react-icons/md";
+import { SlClose } from "react-icons/sl";
 
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
@@ -45,21 +46,21 @@ const Task = ({ task, onDelete, onEdit }) => {
     return (
         <>
             <div className="task">
-                <div className="colorTask" style={{ backgroundColor: `${task.color}` }}></div>
                 <div className="info">
-                    <p className='titleTask'>{task.title}</p>
+                    <p className='titleTask' style={{ color: `${task.color}` }}>{task.title}</p>
                     <p className='subTask'>{task.text}</p>
                 </div>
                 <div className="tools">
-                    <div className="delete" onClick={() => onDelete(task._id)}><AiOutlineDelete color="white" /></div>
-                    <div className="checkbox-wrapper" onClick={toggleComplete}>
-                        <input id={`_checkbox-${task._id}`} type="checkbox" checked={isChecked} onChange={() => { }} />
-                        <label htmlFor={`_checkbox-${task._id}`}>
-                            <div className="tick_mark"></div>
-                        </label>
+                    <div className="delete" onClick={() => onDelete(task._id)}><AiOutlineDelete size="20px" /></div>
+                    <div className="toolCheckBox" onClick={() => toggleComplete()}>
+                        <svg className={isChecked ? "checkmark active" : "checkmark"} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle className="checkmark__circle" cx="26" cy="26" r="25" fill="none" /><path className="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" /></svg>
+                        <svg className="cross__svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52" style={{ display: `${isChecked ? "none" : "flex"}` }}>
+                            <circle className="cross__circle" cx="26" cy="26" r="25" fill="none" />
+                            <path className="cross__path cross__path--right" fill="none" d="M16,16 l20,20" />
+                            <path className="cross__path cross__path--right" fill="none" d="M16,36 l20,-20" />
+                        </svg>
                     </div>
-                    <div className="edit" onClick={handleEditClick}><MdModeEdit color="white" /></div>
-                    <EditModal active={modalEditActive} setActive={setModalEditActive} id={task._id} defaultValues={task} />
+                    <div className="edit" onClick={handleEditClick}><MdModeEdit size="20px" /></div>
                 </div>
             </div>
             <Snackbar
@@ -74,6 +75,7 @@ const Task = ({ task, onDelete, onEdit }) => {
                     {snackbarMessage}
                 </Alert>
             </Snackbar>
+            <EditModal active={modalEditActive} setActive={setModalEditActive} id={task._id} defaultValues={task} />
         </>
     );
 };

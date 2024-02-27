@@ -40,18 +40,22 @@
 
 .loaderDiv {
   width: 100%;
-  min-height: calc(100vh - 80px);
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  background: #0a101e;
+  background-image:
+    radial-gradient(at 47% 33%, hsl(216, 30%, 10%) 0, transparent 59%),
+    radial-gradient(at 82% 65%, hsl(218.00, 39%, 11%) 0, transparent 55%);
 }
 
 .loader {
   width: 120px;
   height: 20px;
-  -webkit-mask: linear-gradient(90deg, #000 70%, #0000 0) 0/20%;
+  -webkit-mask: linear-gradient(90deg, #ffffff 70%, #0000 0) 0/20%;
   background:
-    linear-gradient(#000 0 0) 0/0% no-repeat #ddd;
+    linear-gradient(#1f2343 0 0) 0/0% no-repeat #ddd;
   animation: l4 2s infinite steps(6);
 }
 

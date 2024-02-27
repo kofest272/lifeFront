@@ -1,8 +1,22 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500&display=swap');
+@import url('https://fonts.cdnfonts.com/css/general-sans');
+
+$brand-success: #5cb85c;
+$loader-size: 1.3em;
+$check-height: $loader-size/2;
+$check-width: $check-height/2;
+$check-left: (
+    $loader-size/6 + $loader-size/12
+);
+$check-thickness: 3px;
+$check-color: $brand-success;
 
 .contCenter {
     display: flex;
     justify-content: center;
+    background: #0a101e;
+    background-image:
+        radial-gradient(at 47% 33%, hsl(216, 30%, 10%) 0, transparent 59%),
+        radial-gradient(at 82% 65%, hsl(218.00, 39%, 11%) 0, transparent 55%);
 }
 
 .calendarContainer {
@@ -25,8 +39,9 @@
     padding: 5px;
     font-family: Arial, Helvetica, sans-serif;
     width: 100%;
-    border-right: 1px solid #0000002d;
+    border-right: 1px solid #90909017;
     min-height: calc(100vh + 400px);
+    color: rgb(175, 182, 189);
 }
 
 .dayInfo {
@@ -40,15 +55,20 @@
 }
 
 .activeDay {
-    color: #72b3db;
+    p {
+        color: #E7E7EA;
+    }
 }
-
 
 .dayInfo p {
     margin: 0;
+    font-family: 'Montserrat';
+    font-weight: 600;
 }
 
-/* Task css */
+.dayText {
+    font-weight: 400;
+}
 
 .task {
     display: flex;
@@ -56,33 +76,29 @@
     justify-content: space-between;
     align-items: center;
     width: 95%;
-    height: 200px;
-    border-radius: 15px;
-    box-shadow: 0 2px 4px #00000074;
-    font-family: mon;
-    gap: 10px;
+    min-height: 120px;
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgba(50, 51, 51, 0.75);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.125);
+    font-family: "General Sans", sans-serif;
     overflow: hidden;
 
-    .colorTask {
-        width: 100%;
-        height: 30px;
-        background-image: url('./../../img/taskBg/bg.png');
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: 100%;
-        overflow: hidden;
-    }
 
     .info {
-        font-family: 'Montserrat', sans-serif;
+        margin-top: 10px;
+        font-family: "General Sans", sans-serif;
 
         .titleTask {
+            color: #E5E5E8;
             font-weight: 600;
+            height: 30px;
         }
 
         .subTask {
             font-size: 15px;
-            color: #00000090;
+            color: #e5e5e8a7;
         }
     }
 
@@ -94,18 +110,13 @@
         overflow: hidden;
 
         .delete {
-            background-color: rgb(169, 37, 37);
             width: 100%;
-        }
-
-        .move {
-            background-color: #2a445485;
-            width: 100%;
+            color: rgb(241, 99, 99);
         }
 
         .edit {
-            background-color: gray;
             width: 100%;
+            color: rgb(175, 99, 241);
         }
     }
 }
@@ -133,7 +144,8 @@
 }
 
 .clearBtn {
-    background-color: white;
+    background: none;
+    color: #E5E5E8;
 }
 
 .switchWeeks {
@@ -142,14 +154,22 @@
         justify-content: center;
         align-content: center;
         border: none;
-        background-color: white;
+        background: none;
+        margin-bottom: 8px;
+
+        svg {
+            background: none !important;
+            color: #E7E7EA;
+        }
     }
 
+    color: #E7E7EA;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
     height: 50px;
+    font-family: 'Montserrat';
 }
 
 .switchWeeksPhone {
@@ -158,126 +178,141 @@
         justify-content: center;
         align-content: center;
         border: none;
-        background-color: white;
+        background: none;
+        margin-bottom: 8px;
+
+        svg {
+            background: none !important;
+            color: #E7E7EA;
+        }
     }
 
+    color: #E7E7EA;
     display: none;
     justify-content: center;
     align-items: center;
     width: 100%;
     height: 50px;
+    font-family: 'Montserrat';
 }
 
-.checkbox-wrapper * {
-    -webkit-tap-highlight-color: transparent;
-    outline: none;
-}
+$green: #4248c1;
+$white: #fff;
 
-.checkbox-wrapper input[type="checkbox"] {
-    display: none;
-}
+// Misc
+$curve: cubic-bezier(0.650, 0.000, 0.450, 1.000);
 
-.checkbox-wrapper label {
-    --size: 50px;
-    --shadow: calc(var(--size) * .07) calc(var(--size) * .1);
-    position: relative;
-    display: block;
-    width: var(--size);
-    height: var(--size);
-    margin: 0 auto;
-    background-color: #4158D0;
-    background-image: linear-gradient(43deg, #00b6c0 0%, #006d9b 46%, #0066ff 100%);
-    box-shadow: 0 var(--shadow) #ffbeb8;
-    cursor: pointer;
-    transition: 0.2s ease transform, 0.2s ease background-color,
-        0.2s ease box-shadow;
-    overflow: hidden;
-    z-index: 1;
-    margin-top: -10px;
-}
-
-.checkbox-wrapper label:before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    right: 0;
-    left: 0;
-    width: calc(var(--size) * .7);
-    height: calc(var(--size) * .7);
-    margin: 0 auto;
-    background-color: #fff;
-    transform: translateY(-50%);
-    border-radius: 50%;
-    box-shadow: inset 0 var(--shadow) #ffbeb8;
-    transition: 0.2s ease width, 0.2s ease height;
-}
-
-.checkbox-wrapper label:hover:before {
-    width: calc(var(--size) * .55);
-    height: calc(var(--size) * .55);
-    box-shadow: inset 0 var(--shadow) #ff9d96;
-}
-
-.checkbox-wrapper label:active {
-    transform: scale(0.9);
-}
-
-.checkbox-wrapper .tick_mark {
-    position: absolute;
-    top: -1px;
-    right: 0;
-    left: calc(var(--size) * -.05);
-    width: calc(var(--size) * .5);
-    height: calc(var(--size) * .3);
-    margin: 0 auto;
-    margin-top: 15px;
-    margin-left: calc(var(--size) * .28);
-    transform: rotateZ(-40deg);
-}
-
-.checkbox-wrapper .tick_mark:before,
-.checkbox-wrapper .tick_mark:after {
-    content: "";
-    position: absolute;
-    background-color: #fff;
-    border-radius: 2px;
-    opacity: 0;
-    transition: 0.2s ease transform, 0.2s ease opacity;
-}
-
-.checkbox-wrapper .tick_mark:before {
-    left: 0;
-    bottom: 0;
-    width: calc(var(--size) * .1);
-    height: calc(var(--size) * .3);
-    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.23);
-    transform: translateY(calc(var(--size) * -.68));
-}
-
-.checkbox-wrapper .tick_mark:after {
-    left: 0;
-    bottom: 0;
+.toolCheckBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
-    height: calc(var(--size) * .1);
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.23);
-    transform: translateX(calc(var(--size) * .78));
 }
 
-.checkbox-wrapper input[type="checkbox"]:checked+label {
-    background-color: #4158D0;
-    background-image: linear-gradient(43deg, #009e64 0%, #48ff88 46%, #14d383 100%);
-    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+.checkmark {
+    margin-bottom: 2px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: none;
+    stroke-width: 2;
+    stroke: $white;
+    stroke-miterlimit: 10;
+    box-shadow: inset 0px 0px 0px $green;
 }
 
-.checkbox-wrapper input[type="checkbox"]:checked+label:before {
-    width: 0;
-    height: 0;
+.checkmark.active .checkmark__circle {
+    animation: stroke .6s $curve forwards;
 }
 
-.checkbox-wrapper input[type="checkbox"]:checked+label .tick_mark:before,
-.checkbox-wrapper input[type="checkbox"]:checked+label .tick_mark:after {
-    transform: translate(0);
-    opacity: 1;
+.checkmark.active .checkmark__check {
+    animation: stroke .3s $curve .8s forwards;
+}
+
+.checkmark.active {
+    display: block;
+    animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+}
+
+.checkmark__circle {
+    stroke-dasharray: 166;
+    stroke-dashoffset: 166;
+    stroke-width: 2;
+    stroke-miterlimit: 10;
+    stroke: $green;
+    fill: none;
+}
+
+.checkmark__check {
+    transform-origin: 50% 50%;
+    stroke-dasharray: 48;
+    stroke-dashoffset: 48;
+}
+
+@keyframes stroke {
+    100% {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes scale {
+
+    0%,
+    100% {
+        transform: none;
+    }
+
+    50% {
+        transform: scale3d(1.1, 1.1, 1);
+    }
+}
+
+@keyframes fill {
+    100% {
+        box-shadow: inset 0px 0px 0px 30px $green;
+    }
+}
+
+$color: #e55454;
+
+.cross__svg {
+    border-radius: 50%;
+    display: block;
+    height: 20px;
+    margin: 4rem auto;
+    stroke-width: 3;
+    width: 20px;
+}
+
+.cross__circle {
+    animation: 0.6s ease 0s normal forwards 1 running stroke;
+    fill: none;
+    margin: 0 auto;
+    stroke: $color;
+    stroke-dasharray: 166;
+    stroke-dashoffset: 166;
+    stroke-width: 2;
+}
+
+.cross__path {
+    stroke: $color;
+    stroke-dasharray: 48;
+    stroke-dashoffset: 48;
+    transform-origin: 50% 50% 0;
+
+    &--right {
+        animation: 0.3s ease 0.8s normal forwards 1 running stroke;
+    }
+
+    &--left {
+        animation: 1s ease 0.8s normal forwards 1 running stroke;
+    }
+}
+
+@keyframes stroke {
+    100% {
+        stroke-dashoffset: 0;
+    }
 }
 
 .editZone {
@@ -310,11 +345,12 @@
     border-radius: 10px;
     height: 120px;
     display: flex;
-    background-color: gray;
     overflow: hidden;
     color: white;
     flex-wrap: wrap;
     margin-bottom: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    font-family: 'Montserrat';
 
     p {
         height: 5px;

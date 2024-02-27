@@ -4,6 +4,17 @@
     align-items: center;
     width: 100%;
     height: 100vh;
-    background-color: #EE9B00;
     color: white;
+    background-image: linear-gradient(to left bottom, #ffc400, #f4bc0f, #e9b518, #dfad1e, #d4a623);
+}
+
+.orangeDiv {
+    width: 600px;
+    height: 400px;
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
 }

@@ -7,7 +7,7 @@ import { IoFastFoodOutline } from "react-icons/io5";
 import { MdOutlineWaterDrop, MdOutlineEdit } from "react-icons/md";
 import { FaRunning } from "react-icons/fa";
 
-import './calendar.css'
+import './calendar.scss'
 
 const Stats = ({ stats, index }) => {
     const [modalEditStats, setModalEditStats] = useState(false);

@@ -84,6 +84,10 @@
 }
 
 @media screen and (max-width: 1500px) {
+    .modal__content {
+        padding: 30px !important;
+    }
+
     .statsContainer {
         flex-wrap: wrap !important;
         height: 240px !important;
