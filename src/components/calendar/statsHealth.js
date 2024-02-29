@@ -1,6 +1,5 @@
-import { useState } from 'react';
 import { CircularProgressbarWithChildren, buildStyles } from 'react-circular-progressbar';
-import EditModalStats from './calendarTools/editModalStats';
+import { Link } from 'react-router-dom';
 
 import { FaWeightScale } from "react-icons/fa6";
 import { IoFastFoodOutline } from "react-icons/io5";
@@ -10,7 +9,6 @@ import { FaRunning } from "react-icons/fa";
 import './calendar.scss'
 
 const Stats = ({ stats, index }) => {
-    const [modalEditStats, setModalEditStats] = useState(false);
     const data = stats;
     return (
         <>
@@ -98,11 +96,12 @@ const Stats = ({ stats, index }) => {
                     </div>
                 </div>
             </div>
-            <div className="editZone" onClick={() => setModalEditStats(true)}>
-                <div className="editCircle">
-                    <MdOutlineEdit size="20px" />
-                </div>
-                <EditModalStats active={modalEditStats} setActive={setModalEditStats} defaultValues={data} />
+            <div className="editZone">
+                <Link to={`/health/${data._id ? data._id : data.day}`}>
+                    <div className="editCircle">
+                        <MdOutlineEdit size="20px" />
+                    </div>
+                </Link>
             </div>
         </>
     )

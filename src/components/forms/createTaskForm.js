@@ -1,5 +1,5 @@
-import React from "react";
 import { useDispatch } from "react-redux";
+import { useState, React } from "react";
 
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
@@ -9,11 +9,16 @@ import { useForm } from "react-hook-form";
 import styles from "./style.scss";
 import { fetchAddTask } from "../../redux/slices/task";
 import { useNavigate } from "react-router-dom";
+
 import { ThemeProvider, createTheme } from "@mui/material";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
 
 const CreateTask = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [snackbarOpen, setSnackbarOpen] = useState(false);
+    const [snackbarMessage, setSnackbarMessage] = useState("");
     const {
         register,
         handleSubmit,
@@ -30,16 +35,19 @@ const CreateTask = () => {
         return navigate("/")
     }
 
+    const handleSnackbarClose = () => {
+        setSnackbarOpen(false);
+    };
+
     const onSubmit = async (params) => {
         const data = await dispatch(fetchAddTask(params));
 
         if (!data.payload) {
-            return alert('Не удалось создать задание')
+            setSnackbarMessage('Ошибка при создании задания');
+            setSnackbarOpen(true);
+        } else {
+            refreshPage()
         }
-
-        alert('Задание успешно создано')
-
-        refreshPage()
     }
 
     const theme = createTheme({
@@ -104,6 +112,18 @@ const CreateTask = () => {
                     </Button>
                 </form>
             </ThemeProvider>
+            <Snackbar
+                open={snackbarOpen}
+                autoHideDuration={3000}
+                onClose={handleSnackbarClose}
+            >
+                <Alert
+                    onClose={handleSnackbarClose}
+                    severity={snackbarMessage.includes('successfully') ? 'success' : 'error'}
+                >
+                    {snackbarMessage}
+                </Alert>
+            </Snackbar>
         </>
 
     );

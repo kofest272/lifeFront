@@ -72,8 +72,7 @@ const Login = () => {
                         Вход в аккаунт
                     </Typography>
                     <form onSubmit={handleSubmit(onSubmit)}>
-                        <TextField
-                            className={styles.field}
+                        <TextField className={styles.field}
                             label="E-Mail"
                             error={Boolean(errors.email?.message)}
                             helperText={errors.email?.message}
@@ -83,6 +82,7 @@ const Login = () => {
                         />
                         <TextField className={styles.field}
                             label="Пароль"
+                            type="password"
                             fullWidth
                             error={Boolean(errors.password?.message)}
                             helperText={errors.password?.message}

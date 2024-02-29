@@ -174,26 +174,25 @@ const Calendar = () => {
 
     const statsForDay = (day) => {
         let todayStats = stats.filter(task => task.user?._id === userData?.userData?._id);
-        return todayStats.map((statsDB, index) => {
+        let matchedStats = todayStats.find(statsDB => {
             let date = new Date(statsDB.day);
-            if (compareDates(day, date)) {
-                return (
-                    <Stats key={index} stats={statsDB} index={index} />
-                );
-            } else {
-                const defaultValuesStats = {
-                    day: day,
-                    calories: 0,
-                    water: 0,
-                    weight: 0,
-                    activity: 0
-                }
-                return (
-                    <Stats key={index} stats={defaultValuesStats} index={index} />
-                )
-            }
+            return compareDates(day, date);
         });
+
+        if (matchedStats) {
+            return <Stats key={matchedStats._id} stats={matchedStats} />;
+        } else {
+            const defaultValuesStats = {
+                day: day,
+                calories: 0,
+                water: 0,
+                weight: 0,
+                activity: 0
+            };
+            return <Stats key="default" stats={defaultValuesStats} />;
+        }
     };
+
 
 
     useEffect(() => {

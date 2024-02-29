@@ -40,12 +40,10 @@ form {
     margin-bottom: 30px;
 }
 
-.css-1d3z3hw-MuiOutlinedInput-root {
-    border-color: rgb(216, 216, 216) !important;
-    /* Задаем серый цвет границы */
-}
 
-.css-1d3z3hw-MuiOutlinedInput-input {
-    color: rgb(216, 216, 216) !important;
-    /* Задаем серый цвет текста внутри инпута */
+.css-p51h6s-MuiInputBase-input-MuiOutlinedInput-input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 100px #1E1E1E inset !important;
+    -webkit-text-fill-color: #fff;
+    caret-color: #fff;
+    border-radius: inherit;
 }

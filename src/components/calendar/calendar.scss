@@ -19,6 +19,11 @@ $check-color: $brand-success;
         radial-gradient(at 82% 65%, hsl(218.00, 39%, 11%) 0, transparent 55%);
 }
 
+a {
+    display: flex;
+    justify-content: center;
+}
+
 .calendarContainer {
     display: flex;
     justify-content: center;

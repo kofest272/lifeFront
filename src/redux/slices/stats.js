@@ -7,6 +7,11 @@ export const fetchStats = createAsyncThunk('stats/fetchStats', async () => {
     return data;
 })
 
+export const fetchOneStats = createAsyncThunk('stats/fetchOneStats', async (id) => {
+    const { data } = await axios.get(`/stats/${id}`);
+    return data;
+})
+
 export const fetchAddStats = createAsyncThunk('stats/fetchAddStats', async (params) => {
     const { data } = await axios.post('/stats', params);
     return data;
