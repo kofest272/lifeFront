@@ -6,16 +6,16 @@ const Page404 = () => {
     return (
         <div className="toCenter">
             <ul>
-                <div data-js="astro" class="astronaut">
-                    <div class="head"></div>
-                    <div class="arm arm-left"></div>
-                    <div class="arm arm-right"></div>
-                    <div class="body">
-                        <div class="panel"></div>
+                <div data-js="astro" className="astronaut">
+                    <div className="head"></div>
+                    <div className="arm arm-left"></div>
+                    <div className="arm arm-right"></div>
+                    <div className="body">
+                        <div className="panel"></div>
                     </div>
-                    <div class="leg leg-left"></div>
-                    <div class="leg leg-right"></div>
-                    <div class="schoolbag"></div>
+                    <div className="leg leg-left"></div>
+                    <div className="leg leg-right"></div>
+                    <div className="schoolbag"></div>
                 </div>
                 <h1 style={{ fontFamily: 'Montserrat', marginTop: '450px' }}>Something went wrong</h1>
                 <Link to="/"><h1 style={{ fontFamily: 'Montserrat' }}>Back to main page</h1></Link>

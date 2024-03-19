@@ -1,5 +1,5 @@
 import React from "react";
-import './modal.css';
+import '../../modal.css';
 import CreateTask from "../../forms/createTaskForm";
 
 const CreateModal = ({ active, setActive }) => {

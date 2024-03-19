@@ -97,7 +97,7 @@ const Stats = ({ stats, index }) => {
                 </div>
             </div>
             <div className="editZone">
-                <Link to={`/health/${data._id ? data._id : data.day}`}>
+                <Link to={`/health/${data._id ? `id:${data._id}` : `dt:${data.day}`}`}>
                     <div className="editCircle">
                         <MdOutlineEdit size="20px" />
                     </div>

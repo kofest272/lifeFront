@@ -1,5 +1,5 @@
 import React from "react";
-import './modal.css';
+import '../../modal.css';
 import EditTask from "../../forms/editTaskForm";
 
 const EditModal = ({ active, setActive, id, defaultValues }) => {

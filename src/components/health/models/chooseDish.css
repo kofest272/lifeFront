@@ -1,0 +1,219 @@
+@keyframes colorChange {
+    0% {
+        color: #ffffff;
+    }
+
+    100% {
+        color: #7d7d7d;
+    }
+}
+
+.mealsChooseContainer {
+    width: 100%;
+    height: 700px;
+    display: flex;
+    flex-direction: column;
+
+    .myOrPublic {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .icon {
+        margin-top: 6px;
+    }
+
+    .choice {
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        width: 180px;
+        height: 50px;
+        font-size: 16px;
+        flex-wrap: wrap;
+        gap: 10px;
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+
+    .choiceActive {
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        width: 180px;
+        height: 50px;
+        font-size: 16px;
+        background: #5751ff12;
+        background: radial-gradient(at center bottom, #5751ff12, #4f4f4f00);
+        border: 1px solid rgba(255, 255, 255, 0.02);
+        border-radius: 8px;
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        flex-wrap: wrap;
+        gap: 10px;
+        cursor: pointer;
+    }
+
+    .textChoice {
+        margin: 0;
+        height: 30px;
+    }
+
+    .choice:hover {
+        color: #b3b1b1;
+    }
+
+    .searchBar {
+        margin-top: 10px;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        width: 100%;
+        height: 50px;
+        flex-wrap: wrap;
+        gap: 5px;
+        background: #5751ff12;
+        background: radial-gradient(at center bottom, #5751ff12, #4f4f4f00);
+        border: 1px solid rgba(255, 255, 255, 0.02);
+        border-radius: 8px;
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        text-indent: 10px;
+        color: white;
+    }
+
+    .searchBar:focus {
+        outline: none;
+    }
+
+    p {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+    }
+
+    .createForm {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        width: 100%;
+        height: 80%;
+
+        form {
+            width: 100%;
+        }
+    }
+
+    .publicMeals {
+        margin-top: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .myMeals {
+        margin-top: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .meal {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        height: 120px;
+        backdrop-filter: blur(16px) saturate(180%);
+        -webkit-backdrop-filter: blur(16px) saturate(180%);
+        background-color: rgba(50, 51, 51, 0.55);
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+    .mealOnHover {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 120px;
+        backdrop-filter: blur(16px) saturate(180%);
+        -webkit-backdrop-filter: blur(16px) saturate(180%);
+        background-color: rgba(50, 51, 51, 1);
+        overflow: hidden;
+        opacity: 0%;
+        transition: opacity 0.2s;
+    }
+
+    .mealOnHover:hover {
+        opacity: 100%;
+        cursor: pointer;
+    }
+
+    .mealAdd {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 120px;
+        border-radius: 12px;
+        backdrop-filter: blur(16px) saturate(180%);
+        -webkit-backdrop-filter: blur(16px) saturate(180%);
+        background-color: rgba(50, 51, 51, 0.55);
+        border-radius: 12px;
+        overflow: hidden;
+        cursor: pointer;
+    }
+
+    .mealImage {
+        width: 70%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+    }
+
+    .mealStats {
+        height: 40px;
+        color: white;
+
+        .title {
+            height: 22px;
+            font-size: 15px;
+            border-bottom: 1px solid #ffffff;
+            margin: 0;
+            font-weight: 500;
+        }
+
+        .mealNum {
+            height: 15px;
+            margin: 0;
+        }
+
+    }
+
+    .mealDoc {
+        width: 100%;
+        height: 40%;
+        display: flex;
+        justify-content: center;
+        align-content: start;
+        gap: 10px;
+    }
+
+    .mealInfo {
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        justify-content: space-around;
+        padding: 10px;
+        font-family: 'Montserrat';
+        font-weight: 600;
+    }
+
+    .mealTitle {
+        color: white;
+    }
+}

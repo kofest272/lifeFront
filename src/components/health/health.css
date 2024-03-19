@@ -6,8 +6,8 @@
     min-height: 100vh;
     background: #0a101e;
     background-image:
-        radial-gradient(at 47% 33%, hsl(216, 30%, 10%) 0, transparent 59%),
-        radial-gradient(at 82% 65%, hsl(218.00, 39%, 11%) 0, transparent 55%);
+        radial-gradient(at 47% 33%, hsl(263, 34%, 17%) 0, transparent 59%),
+        radial-gradient(at 82% 65%, rgba(0, 17, 255, 0.16) 0, transparent 55%);
 }
 
 .containerHealth {
@@ -19,14 +19,201 @@
     align-items: center;
     flex-wrap: wrap;
     gap: 10px;
-}
 
-.statsDiv {
-    min-width: 800px;
-    height: 350px;
-    backdrop-filter: blur(16px) saturate(180%);
-    -webkit-backdrop-filter: blur(16px) saturate(180%);
-    background-color: rgba(17, 25, 40, 0.75);
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.125);
+    .rightContainer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 100%;
+        gap: 20px;
+    }
+
+    .statsDiv {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-items: center;
+        width: 60%;
+        height: 350px;
+    }
+
+    .infoStats {
+        display: flex;
+        justify-content: space-around;
+        flex-direction: column;
+        color: white;
+        font-size: 40px;
+        font-family: 'Montserrat';
+        height: 100px;
+        overflow: hidden;
+
+        p {
+            margin: 0;
+            border-bottom: 3px solid #ffffff;
+        }
+
+        .bold {
+            font-weight: 700;
+        }
+    }
+
+    .circle {
+        width: 150px;
+        height: 150px;
+    }
+
+    .tripleStats {
+        width: 60%;
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+    }
+
+    .loaderDivMeal {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        width: 100%;
+        height: 120px;
+    }
+
+    .mealsList {
+        display: flex;
+        align-items: start;
+        flex-wrap: wrap;
+        width: 500px;
+        height: 250px;
+        overflow-y: scroll;
+        gap: 10px;
+        padding-right: 5px;
+        border-radius: 10px;
+
+        .meal {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-height: 160px;
+            border-radius: 12px;
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            background-color: rgba(50, 51, 51, 0.55);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .mealChangeOrDelete {
+            display: flex;
+            flex-direction: column;
+            width: 60px;
+            max-height: 120px;
+            z-index: 9;
+            transition: transform 0.1s ease-in;
+            transform: translateX(100%);
+        }
+
+        .meal:hover .mealChangeOrDelete {
+            transform: translateX(0%);
+        }
+
+        .mealDelete {
+            cursor: pointer;
+            padding: 5px;
+            font-size: 1.2rem;
+        }
+
+        .mealDelete {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            background-color: red;
+            color: white;
+            cursor: pointer;
+        }
+
+        .mealAdd {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 120px;
+            border-radius: 12px;
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            background-color: rgba(50, 51, 51, 0.55);
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .mealImage {
+            width: 50%;
+            max-height: 120px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .mealStats {
+            height: 40px;
+            color: white;
+
+            .title {
+                height: 22px;
+                font-size: 15px;
+                border-bottom: 1px solid #ffffff;
+                margin: 0;
+                font-weight: 500;
+            }
+
+            .mealNum {
+                height: 15px;
+                margin: 0;
+            }
+
+        }
+
+        .mealDoc {
+            width: 100%;
+            height: 40%;
+            display: flex;
+            justify-content: center;
+            align-content: start;
+            gap: 10px;
+        }
+
+        .mealInfo {
+            display: flex;
+            width: 100%;
+            flex-direction: column;
+            justify-content: space-around;
+            padding: 20px;
+            font-family: 'Montserrat';
+            font-weight: 600;
+        }
+
+        .mealTitle {
+            color: white;
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            background: none !important;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+    }
 }

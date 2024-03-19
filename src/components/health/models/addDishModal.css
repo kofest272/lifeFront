@@ -1,0 +1,143 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:200,300,400,700');
+
+.modal {
+    height: 100vh;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    background-size: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: .2s;
+    backdrop-filter: blur(1px);
+    -webkit-backdrop-filter: blur(1px);
+    z-index: 999;
+}
+
+.modal.active {
+    pointer-events: all;
+    opacity: 100%;
+}
+
+.modalAddDish__content {
+    margin-top: 100px;
+    width: 500px;
+    height: 550px;
+    padding: 0px;
+    background: rgba(30, 30, 30, 1);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.02);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+    color: white;
+    overflow: hidden;
+}
+
+.mealImage {
+    width: 100%;
+    height: 150px;
+    background-size: cover;
+    background-position: center;
+}
+
+.mealModalContainer {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    flex-direction: column;
+    gap: 30px;
+
+    .mealStats {
+        height: 60px;
+        color: white;
+
+        .title {
+            height: 32px;
+            font-size: 24px;
+            border-bottom: 1px solid #ffffff;
+            margin: 0;
+            font-weight: 500;
+        }
+
+        .mealNum {
+            height: 15px;
+            margin: 0;
+            font-size: 24px;
+        }
+
+    }
+
+    .mealDoc {
+        width: 100%;
+        height: 70px;
+        display: flex;
+        justify-content: center;
+        align-content: start;
+        gap: 30px;
+    }
+
+    .mealInfo {
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        justify-content: space-around;
+        padding: 10px;
+        font-family: 'Montserrat';
+        font-weight: 600;
+    }
+
+    h2 {
+        font-weight: 600;
+    }
+
+    .counterButtons {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        width: 60%;
+        height: 60px;
+
+        button {
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            border: none;
+            color: white;
+            font-size: 30px;
+            background-color: #242424;
+        }
+
+        input {
+            width: 50%;
+            height: 60px;
+            background-color: #242424;
+            border: none;
+            color: white;
+            font-size: 25px;
+            padding-left: 10px;
+            border-radius: 10px;
+        }
+
+        input:focus {
+            outline: none;
+        }
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+    }
+}
