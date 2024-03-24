@@ -81,6 +81,56 @@
     .switchWeeksPhone {
         display: flex !important;
     }
+
+    .meal {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .mealImage {
+        width: 100% !important;
+        height: 50px !important;
+    }
+
+    .mealDelete {
+        width: 100% !important;
+        transform: translateX(0%) !important;
+    }
+
+    .tripleStats {
+        padding-bottom: 100px;
+    }
+
+    .mealDoc {
+        flex-wrap: wrap;
+    }
+
+    .dishModal__content {
+        margin-top: 0px !important;
+        width: 380px !important;
+    }
+
+    .modalAddDish__content {
+        margin-top: 0px !important;
+        width: 380px !important;
+        height: 500px !important;
+
+        .mealImage {
+            height: 100px !important;
+        }
+    }
+
+    .textChoice {
+        font-size: 10px;
+    }
+
+    .statsDiv {
+        height: 600px !important;
+    }
+
+    .rightContainer {
+        height: 300px !important;
+    }
 }
 
 @media screen and (max-width: 1500px) {

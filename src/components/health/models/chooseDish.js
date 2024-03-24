@@ -132,6 +132,78 @@ const DishModal = ({ active, setActive, id, defaultValues }) => {
         setSnackbarOpen(false);
     };
 
+    const handleSearch = (e) => {
+        const value = e.target.value;
+
+        const results = meals.filter((it) => {
+            return it.name.toLowerCase().indexOf(value.toLowerCase()) !== -1
+        })
+
+        const resultsMy = results.filter(meal => meal.user?._id === userId.data.userData._id);
+
+        const finalRes = results.map((meal, index) => (
+            <div className="meal" key={index}>
+                <div className="mealOnHover" onClick={() => { setDishModalInfo(meal); setAddDishModalOpen(true) }}>
+                    <IoIosAdd size="80px" color="rgba(206, 210, 210, 0.65)" />
+                </div>
+                <div className='mealImage' style={{ backgroundImage: (meal.image === "") ? `url(${imageNotFound})` : `url(http://localhost:4444${meal.image})` }}></div>
+                <div className="mealInfo">
+                    <p className="mealTitle">{meal.name}</p>
+                    <div className="mealDoc">
+                        <div className="mealStats">
+                            <p className='title'>Calories</p>
+                            <p className='mealNum'>{meal.calories}</p>
+                        </div>
+                        <div className="mealStats">
+                            <p className='title'>Protein</p>
+                            <p className='mealNum'>{meal.proteins}</p>
+                        </div>
+                        <div className="mealStats">
+                            <p className='title'>Carbon</p>
+                            <p className='mealNum'>{meal.carbohydrates}</p>
+                        </div>
+                        <div className="mealStats">
+                            <p className='title'>Fats</p>
+                            <p className='mealNum'>{meal.fats}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        ));
+
+        const finalResMy = resultsMy.map((meal, index) => (
+            <div className="meal" key={index}>
+                <div className="mealOnHover" onClick={() => { setDishModalInfo(meal); setAddDishModalOpen(true) }}>
+                    <IoIosAdd size="80px" color="rgba(206, 210, 210, 0.65)" />
+                </div>
+                <div className='mealImage' style={{ backgroundImage: (meal.image === "") ? `url(${imageNotFound})` : `url(http://localhost:4444${meal.image})` }}></div>
+                <div className="mealInfo">
+                    <p className="mealTitle">{meal.name}</p>
+                    <div className="mealDoc">
+                        <div className="mealStats">
+                            <p className='title'>Calories</p>
+                            <p className='mealNum'>{meal.calories}</p>
+                        </div>
+                        <div className="mealStats">
+                            <p className='title'>Protein</p>
+                            <p className='mealNum'>{meal.proteins}</p>
+                        </div>
+                        <div className="mealStats">
+                            <p className='title'>Carbon</p>
+                            <p className='mealNum'>{meal.carbohydrates}</p>
+                        </div>
+                        <div className="mealStats">
+                            <p className='title'>Fats</p>
+                            <p className='mealNum'>{meal.fats}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        ));
+        setRenderMeals(finalRes.slice(0, 4))
+        setMyMeals(finalResMy.slice(0, 4))
+    }
+
     return (
         <>
             <div className={`dishModal ${active ? 'active' : ''}`} onClick={() => setActive(false)}>
@@ -142,7 +214,7 @@ const DishModal = ({ active, setActive, id, defaultValues }) => {
                             <div className={(mealMode === 2) ? 'choiceActive' : 'choice'} onClick={() => { setMealMode(2) }}><p className="textChoice">Public Meals</p><MdOutlinePublic size="16px" className="icon" /></div>
                             <div className={(mealMode === 3) ? 'choiceActive' : 'choice'} onClick={() => { setMealMode(3) }}><p className="textChoice">Create Meal</p><IoIosCreate size="16px" className="icon" /></div>
                         </div>
-                        <input type="text" className="searchBar" style={{ display: (mealMode === 3) ? 'none' : 'flex' }} placeholder="Search..." />
+                        <input onChange={handleSearch} type="text" className="searchBar" style={{ display: (mealMode === 3) ? 'none' : 'flex' }} placeholder="Поиск..." />
                         <div className="myMeals" style={{ display: (mealMode === 1) ? 'flex' : 'none' }}>
                             {myMeals}
                         </div>

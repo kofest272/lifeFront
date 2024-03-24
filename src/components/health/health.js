@@ -133,10 +133,8 @@ const Health = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="mealChangeOrDelete">
-                                <div className="mealDelete" onClick={() => { deleteMeal(dataDDD) }}>
-                                    <MdDeleteOutline />
-                                </div>
+                            <div className="mealDelete" onClick={() => { deleteMeal(dataDDD) }}>
+                                <MdDeleteOutline />
                             </div>
                         </div>
                     </>
