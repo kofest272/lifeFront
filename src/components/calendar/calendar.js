@@ -17,8 +17,6 @@ import './calendar.scss';
 import 'react-circular-progressbar/dist/styles.css';
 import '../../Adapt.scss';
 
-
-
 const Calendar = () => {
     const [week, setWeek] = useState([]);
     const [weekMobile, setWeekMobile] = useState([]);
@@ -30,6 +28,7 @@ const Calendar = () => {
     const [snackbarMessage, setSnackbarMessage] = useState("");
     const [loading, setLoading] = useState(true);
     const [currentWeekIndex, setCurrentWeekIndex] = useState(0);
+    const [dailyTasksData, setDailyTasksData] = useState(null); // Добавлено состояние для хранения данных ежедневных задач
 
     const { data: userData } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
@@ -37,14 +36,14 @@ const Calendar = () => {
     const navigate = useNavigate();
 
     const refreshPage = () => {
-        return navigate("/")
-    }
+        return navigate("/");
+    };
 
     useEffect(() => {
         if (isAuth) {
             getWeek();
         } else {
-            return navigate("/reg")
+            return navigate("/reg");
         }
     }, [isAuth]);
 
@@ -54,7 +53,7 @@ const Calendar = () => {
                 refreshPage();
             });
         }
-    }
+    };
 
     const handleSnackbarClose = () => {
         setSnackbarOpen(false);
@@ -70,11 +69,12 @@ const Calendar = () => {
     });
 
     const daysNames = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Субота', 'Воскресенье'];
+    const shortDaysNames = ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС'];
     const numberNames = ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21',
         '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'];
-    const monthNames = ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
+    const monthNames = ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
 
-    const getWeek = () => {
+    const getWeek = async () => {
         const weekData = [];
         const date = new Date();
         const todayDate = new Date(date.getFullYear(), date.getMonth(), date.getDate()); // Текущая дата без времени
@@ -94,10 +94,30 @@ const Calendar = () => {
 
     const goToPreviousWeek = (index) => {
         setCurrentWeekIndex(prevIndex => prevIndex - index);
+        const date = new Date();
+        const startOfWeek = new Date(date);
+        const todayDay = (date.getDay() + 6) % 7;
+        startOfWeek.setDate(startOfWeek.getDate() - todayDay + (currentWeekIndex - index)); // Учитывайте индекс вложенности области видимости
+        const weekStart = new Date(startOfWeek.getFullYear(), startOfWeek.getMonth(), startOfWeek.getDate()); // Стартовая дата недели без времени
+
+        // Обновите список задач для каждого дня недели
+        const updatedTasks = week.map(day => checkTask(new Date(weekStart.getTime() + day.day * 24 * 60 * 60 * 1000)));
+
+        setDailyTasksData(updatedTasks); // Обновите состояние с данными о задачах для каждого дня недели
     };
 
     const goToNextWeek = (index) => {
         setCurrentWeekIndex(prevIndex => prevIndex + index);
+        const date = new Date();
+        const startOfWeek = new Date(date);
+        const todayDay = (date.getDay() + 6) % 7;
+        startOfWeek.setDate(startOfWeek.getDate() - todayDay + (currentWeekIndex + index)); // Учитывайте индекс вложенности области видимости
+        const weekStart = new Date(startOfWeek.getFullYear(), startOfWeek.getMonth(), startOfWeek.getDate()); // Стартовая дата недели без времени
+
+        // Обновите список задач для каждого дня недели
+        const updatedTasks = week.map(day => checkTask(new Date(weekStart.getTime() + day.day * 24 * 60 * 60 * 1000)));
+
+        setDailyTasksData(updatedTasks); // Обновите состояние с данными о задачах для каждого дня недели
     };
 
     const dateForMobile = (today) => {
@@ -155,21 +175,26 @@ const Calendar = () => {
         return sameDay && sameMonth && sameYear;
     }
 
-
     const tasksForDay = (day, tasks) => {
-        return tasks.map((task, index) => {
+        const dayOfWeek = (new Date(day).getDay() + 6) % 7;
+        const result = tasks.map((task, index) => {
             let date = new Date(task.finalDate);
-            if (compareDates(day, date)) {
+            // Проверка, если дата совпадает с текущим днем или если задача повторяется в указанный день недели
+            if (compareDates(day, date) || task.dailyDays.includes(dayOfWeek)) {
                 return (
                     <Task
-                        key={index}
+                        key={task._id}
                         task={task}
+                        day={day}
                         onDelete={deleteTask}
                         onEdit={() => setModalEditActive(index)}
                     />
                 );
+            } else {
+                return null;
             }
         });
+        return result;
     };
 
     const statsForDay = (day) => {
@@ -192,8 +217,6 @@ const Calendar = () => {
             return <Stats key="default" stats={defaultValuesStats} />;
         }
     };
-
-
 
     useEffect(() => {
         if (isAuth && loading) {

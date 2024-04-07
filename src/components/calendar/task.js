@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { AiOutlineDelete } from "react-icons/ai";
@@ -11,11 +11,11 @@ import Alert from "@mui/material/Alert";
 import EditModal from './calendarTools/editTask';
 import { fetchToggleCompleteTask } from '../../redux/slices/task';
 
-const Task = ({ task, onDelete, onEdit }) => {
+const Task = ({ task, onDelete, onEdit, day }) => {
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const [snackbarMessage, setSnackbarMessage] = useState("");
     const [modalEditActive, setModalEditActive] = useState(false);
-    const [isChecked, setIsChecked] = useState(task.completed);
+    const [isChecked, setIsChecked] = useState(task.completed[day] ? task.completed[day] : false);
     const dispatch = useDispatch();
 
     const handleEditClick = () => {
@@ -29,7 +29,7 @@ const Task = ({ task, onDelete, onEdit }) => {
 
     const toggleComplete = async () => {
         try {
-            const data = await dispatch(fetchToggleCompleteTask({ id: task._id }));
+            const data = await dispatch(fetchToggleCompleteTask({ id: task._id, day: day }));
             if (data.error) {
                 throw new Error(`Ошибка: ${data.error.message}`);
             }
@@ -38,10 +38,14 @@ const Task = ({ task, onDelete, onEdit }) => {
             setSnackbarMessage('Задание успешно обновлено');
             setSnackbarOpen(true);
         } catch (error) {
-            setSnackbarMessage(error.message || 'Произошла ошибка ', error);
+            setSnackbarMessage(error.message || 'Произошла ошибка');
             setSnackbarOpen(true);
         }
-    }
+    };
+
+    useEffect(() => {
+        setIsChecked(task.completed[day] || false); // Обновляем isChecked при изменении дня
+    }, [day, task.completed]);
 
     return (
         <>

@@ -8,6 +8,7 @@ import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import styles from "./style.scss";
+import MenuItem from "@mui/material/MenuItem";
 import { fetchEditTask } from "../../redux/slices/task";
 import { useNavigate } from "react-router-dom";
 
@@ -15,12 +16,14 @@ const EditTask = ({ id, defaultValues }) => {
     const dispatch = useDispatch();
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const [snackbarMessage, setSnackbarMessage] = useState("");
-    const { register, handleSubmit, formState: { errors, isValid } } = useForm({
+    const [selectedDays, setSelectedDays] = useState([]);
+    const { register, handleSubmit, formState: { errors, isValid }, setValue, watch } = useForm({
         defaultValues: {
             title: defaultValues.title || '',
             text: defaultValues.text || '',
             color: defaultValues.color || '',
             finalDate: defaultValues.finalDate || '',
+            dailyTask: defaultValues.dailyTask || false,
         },
         mode: 'all'
     });
@@ -32,15 +35,23 @@ const EditTask = ({ id, defaultValues }) => {
 
     const onSubmit = async (params) => {
         try {
+            if (params.dailyTask) {
+                params.dailyDays = selectedDays;
+                params.finalDate = "2001-01-01";
+                params.daily = true;
+            } else {
+                params.dailyDays = [];
+                params.daily = false;
+            }
             const data = await dispatch(fetchEditTask({ params, id }));
             if (data.error) {
                 throw new Error(`Error: ${data.error.message}`);
             }
-            setSnackbarMessage('Task successfully edited');
+            setSnackbarMessage('Задание успешно отредактировано');
             setSnackbarOpen(true);
             return navigate("/");
         } catch (error) {
-            setSnackbarMessage(error.message || 'Failed to edit task');
+            setSnackbarMessage(error.message || 'Не удалось отредактировать задание');
             setSnackbarOpen(true);
         }
     };
@@ -63,10 +74,26 @@ const EditTask = ({ id, defaultValues }) => {
         },
     });
 
+    const dailyTask = watch('dailyTask');
+
+    const handleDailyTaskChange = (value) => {
+        setValue('dailyTask', value);
+    };
+
+    const handleDayCheckboxChange = (day) => {
+        setSelectedDays(prevSelectedDays => {
+            if (prevSelectedDays.includes(day)) {
+                return prevSelectedDays.filter(selectedDay => selectedDay !== day);
+            } else {
+                return [...prevSelectedDays, day];
+            }
+        });
+    };
+
     return (
         <>
             <ThemeProvider theme={theme}>
-                <h4 style={{ marginBottom: '20px' }}>Отредактировать задание</h4>
+                <Typography variant="h5" classes={{ root: styles.titleForm }}>Отредактировать задание</Typography>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <TextField
                         label="Название задания"
@@ -75,20 +102,16 @@ const EditTask = ({ id, defaultValues }) => {
                         {...register('title', { required: 'Укажите текст' })}
                         type="text"
                         fullWidth
-                        defaultValue={defaultValues.title ?? ''}
                     />
                     <TextField
-                        className={styles.field}
                         label="Описание задания"
                         fullWidth
                         error={Boolean(errors.text?.message)}
                         helperText={errors.text?.message}
                         type="text"
                         {...register('text', { required: 'Укажите текст' })}
-                        defaultValue={defaultValues.text ?? ''}
                     />
                     <TextField
-                        className={styles.field}
                         label="Цвет"
                         fullWidth
                         error={Boolean(errors.color?.message)}
@@ -97,13 +120,41 @@ const EditTask = ({ id, defaultValues }) => {
                         {...register('color', { required: 'Укажите цвет' })}
                     />
                     <TextField
-                        className={styles.field}
                         fullWidth
-                        error={Boolean(errors.finalDate?.message)}
-                        helperText={errors.finalDate?.message}
-                        type="date"
-                        {...register('finalDate', { required: 'Укажите дату' })}
-                    />
+                        select
+                        label="Тип задания"
+                        value={dailyTask}
+                        onChange={(e) => handleDailyTaskChange(e.target.value)}
+                    >
+                        <MenuItem value={false}>Однодневное</MenuItem>
+                        <MenuItem value={true}>Ежедневное</MenuItem>
+                    </TextField>
+                    {dailyTask ? (
+                        <div className={styles.daysOfWeek}>
+                            <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+                                {['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС'].map((day, index) => (
+                                    <div key={day} style={{ display: 'flex', flexDirection: 'column' }}>
+                                        <input
+                                            type="checkbox"
+                                            id={index}
+                                            checked={selectedDays.includes(index)}
+                                            onChange={() => handleDayCheckboxChange(index)}
+                                        />
+                                        <label htmlFor={index}>{day}</label>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    ) : (
+                        <TextField
+                            fullWidth
+                            type="date"
+                            error={Boolean(errors.finalDate?.message)}
+                            helperText={errors.finalDate?.message}
+                            {...register('finalDate', { required: 'Укажите дату' })}
+                        />
+                    )}
+
                     <Button disabled={!isValid} type="submit" size="large" variant="contained" fullWidth>
                         Отредактировать
                     </Button>
@@ -117,7 +168,7 @@ const EditTask = ({ id, defaultValues }) => {
             >
                 <Alert
                     onClose={handleSnackbarClose}
-                    severity={snackbarMessage.includes('successfully') ? 'success' : 'error'}
+                    severity={snackbarMessage.includes('успешно') ? 'success' : 'error'}
                 >
                     {snackbarMessage}
                 </Alert>

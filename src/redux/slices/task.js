@@ -23,7 +23,8 @@ export const fetchEditTask = createAsyncThunk('tasks/fetchEdit', async (params) 
 });
 
 export const fetchToggleCompleteTask = createAsyncThunk('tasks/fetchToggleComplete', async (params) => {
-    const { data } = await axios.patch(`/tasks/complete/${params.id}`);
+    const { id, day } = params;
+    const { data } = await axios.patch(`/tasks/complete/${id}/${day}`);
     return data;
 });
 

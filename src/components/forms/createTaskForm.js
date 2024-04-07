@@ -13,20 +13,26 @@ import { useNavigate } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
 
 const CreateTask = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const [snackbarMessage, setSnackbarMessage] = useState("");
+    const [selectedDays, setSelectedDays] = useState([]);
     const {
         register,
         handleSubmit,
-        formState: { errors, isValid }
+        formState: { errors, isValid, isDirty },
+        setValue,
+        watch
     } = useForm({
         defaultValues: {
             title: "",
             text: "",
+            dailyTask: false,
         },
         mode: 'all'
     })
@@ -39,7 +45,26 @@ const CreateTask = () => {
         setSnackbarOpen(false);
     };
 
+    const handleDayCheckboxChange = (day) => {
+        setSelectedDays(prevSelectedDays => {
+            if (prevSelectedDays.includes(day)) {
+                return prevSelectedDays.filter(selectedDay => selectedDay !== day);
+            } else {
+                return [...prevSelectedDays, day];
+            }
+        });
+    };
+
     const onSubmit = async (params) => {
+        if (params.dailyTask) {
+            params.dailyDays = selectedDays;
+            params.finalDate = "2001-01-01";
+            params.daily = true;
+        } else {
+            params.dailyDays = [];
+            params.daily = false;
+        }
+
         const data = await dispatch(fetchAddTask(params));
 
         if (!data.payload) {
@@ -67,6 +92,12 @@ const CreateTask = () => {
             fontFamily: 'Montserrat'
         },
     });
+
+    const dailyTask = watch('dailyTask');
+
+    const handleDailyTaskChange = (value) => {
+        setValue('dailyTask', value);
+    };
 
     return (
         <>
@@ -100,15 +131,45 @@ const CreateTask = () => {
                         type="color"
                         {...register('color', { required: 'Укажите цвет' })}
                     />
-                    <TextField className={styles.field}
+                    <TextField
+                        className={styles.field}
                         fullWidth
-                        type="date"
-                        error={Boolean(errors.finalDate?.message)}
-                        helperText={errors.finalDate?.message}
-                        {...register('finalDate', { required: 'Укажите дату' })}
-                    />
+                        select
+                        label="Тип задания"
+                        value={dailyTask}
+                        onChange={(e) => handleDailyTaskChange(e.target.value)}
+                    >
+                        <MenuItem value={false}>Однодневное</MenuItem>
+                        <MenuItem value={true}>Ежедневное</MenuItem>
+                    </TextField>
+                    {dailyTask ? (
+                        <div className={styles.daysOfWeek}>
+                            <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+                                {['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС'].map((day, index) => (
+                                    <div key={day} style={{ display: 'flex', flexDirection: 'column' }}>
+                                        <input
+                                            type="checkbox"
+                                            id={index}
+                                            checked={selectedDays.includes(index)}
+                                            onChange={() => handleDayCheckboxChange(index)}
+                                        />
+                                        <label htmlFor={index}>{day}</label>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    ) : (
+                        <TextField className={styles.field}
+                            fullWidth
+                            type="date"
+                            error={Boolean(errors.finalDate?.message)}
+                            helperText={errors.finalDate?.message}
+                            {...register('finalDate', { required: 'Укажите дату' })}
+                        />
+                    )}
+
                     <Button disabled={!isValid} type="submit" size="large" variant="contained" fullWidth>
-                        Создать
+                        Create
                     </Button>
                 </form>
             </ThemeProvider>

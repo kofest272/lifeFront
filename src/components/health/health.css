@@ -45,7 +45,7 @@
         color: white;
         font-size: 40px;
         font-family: 'Montserrat';
-        height: 100px;
+        height: 130px;
         overflow: hidden;
 
         p {
@@ -55,6 +55,7 @@
 
         .bold {
             font-weight: 700;
+            border-bottom: none;
         }
     }
 
